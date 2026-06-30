@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Midhun Rajan — Manufacturing Digital Transformation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --p:#111827; --s:#2563EB; --a:#10B981; --bg:#F8FAFC; --card:#fff;
+  --mu:#6B7280; --bd:#E5E7EB; --su:#F1F5F9; --ink:#374151;
+  --rmd:12px; --rlg:16px;
+  --sh0:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --sh1:0 4px 16px rgba(0,0,0,.08),0 2px 4px rgba(0,0,0,.04);
+  --sh2:0 12px 40px rgba(0,0,0,.1),0 4px 8px rgba(0,0,0,.04);
+  --fh:'Manrope',system-ui,sans-serif; --fb:'Inter',system-ui,sans-serif; --fm:'JetBrains Mono',monospace;
+  --max:1140px; --pad:clamp(20px,5vw,80px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--bg);color:var(--p);line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--s);text-decoration:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.sec{padding:88px 0}
+.sec--alt{background:var(--card)}
+.sec--dk{background:var(--p);color:#fff}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+
+/* Typography */
+.label{font-family:var(--fm);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--s)}
+.label--mu{color:var(--mu)} .label--wh{color:rgba(255,255,255,.45)}
+h1,h2,h3,h4{font-family:var(--fh);font-weight:700;line-height:1.2}
+.d1{font-size:clamp(40px,7vw,88px);font-weight:800;letter-spacing:-.04em}
+.h1{font-size:clamp(28px,4vw,48px);letter-spacing:-.025em}
+.h2{font-size:clamp(22px,3vw,34px);letter-spacing:-.02em}
+.h3{font-size:clamp(17px,2vw,22px);letter-spacing:-.01em}
+.body-lg{font-size:17px;line-height:1.75;color:var(--ink)}
+.body{font-size:14px;line-height:1.7;color:var(--ink)}
+.sm{font-size:12px;color:var(--mu);line-height:1.6}
+
+/* Cards */
+.card{background:var(--card);border:1px solid var(--bd);border-radius:var(--rlg);padding:28px;box-shadow:var(--sh0);transition:box-shadow .2s,transform .2s}
+.card:hover{box-shadow:var(--sh1);transform:translateY(-2px)}
+.card--al{border-left:3px solid var(--a)} .card--bl{border-left:3px solid var(--s)}
+
+/* Badges */
+.badge{display:inline-block;font-family:var(--fm);font-size:10px;padding:3px 9px;border-radius:5px;background:var(--su);color:var(--ink);border:1px solid var(--bd)}
+.badge--b{background:#EFF6FF;color:var(--s);border-color:#BFDBFE}
+.badge--g{background:#ECFDF5;color:#059669;border-color:#A7F3D0}
+.badges{display:flex;flex-wrap:wrap;gap:6px}
+
+/* Divider */
+.div-line{height:1px;background:var(--bd);margin:40px 0}
+.div-accent{width:40px;height:3px;background:var(--a);border-radius:2px;margin:14px 0 28px}
+
+/* Section header */
+.sh{margin-bottom:48px}
+.sh .label{display:block;margin-bottom:12px}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
+.anim{opacity:0;transition:opacity .55s ease,transform .55s ease;transform:translateY(18px)}
+.anim.in{opacity:1;transform:translateY(0)}
+.anim-d1{transition-delay:.05s} .anim-d2{transition-delay:.12s} .anim-d3{transition-delay:.2s} .anim-d4{transition-delay:.28s}
+
+/* Nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,250,252,.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--bd)}
+.nav__i{display:flex;align-items:center;justify-content:space-between;height:58px;max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.nav__brand{font-family:var(--fh);font-weight:700;font-size:14px;color:var(--p)}
+.nav__sub{font-size:11px;color:var(--mu);font-weight:400;margin-left:8px}
+.nav__links{display:flex;gap:28px;list-style:none}
+.nav__links a{font-size:12px;font-weight:500;color:var(--mu);transition:color .15s}
+.nav__links a:hover,.nav__links a.active{color:var(--p)}
+
+/* Cover */
+.cover{min-height:100vh;background:var(--p);display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden}
+.cover__grid{position:absolute;inset:0;background-image:linear-gradient(rgba(37,99,235,.06)1px,transparent 1px),linear-gradient(90deg,rgba(37,99,235,.06)1px,transparent 1px);background-size:52px 52px}
+.cover__orb{position:absolute;border-radius:50%;pointer-events:none}
+.cover__orb--1{width:700px;height:700px;background:radial-gradient(circle,rgba(37,99,235,.16)0%,transparent 70%);top:-200px;right:-150px}
+.cover__orb--2{width:450px;height:450px;background:radial-gradient(circle,rgba(16,185,129,.1)0%,transparent 70%);bottom:80px;left:160px}
+.cover__c{position:relative;z-index:1;padding:120px var(--pad) 72px;max-width:var(--max);margin:0 auto;width:100%}
+.cover__eye{font-family:var(--fm);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--a);margin-bottom:28px;display:flex;align-items:center;gap:12px}
+.cover__eye::before{content:'';display:block;width:28px;height:1px;background:var(--a)}
+.cover__title{font-family:var(--fh);font-size:clamp(44px,8vw,96px);font-weight:800;line-height:1;letter-spacing:-.04em;color:#fff;max-width:840px}
+.cover__title em{font-style:normal;color:var(--a)}
+.cover__sub{margin-top:20px;font-size:clamp(14px,2vw,20px);color:rgba(255,255,255,.5);max-width:520px;line-height:1.55}
+.cover__meta{margin-top:56px;display:flex;align-items:flex-end;justify-content:space-between;border-top:1px solid rgba(255,255,255,.08);padding-top:28px}
+.cover__name{font-family:var(--fh);font-size:18px;font-weight:700;color:#fff}
+.cover__role{font-size:13px;color:rgba(255,255,255,.4);margin-top:3px}
+.cover__stats{display:flex;gap:44px}
+.cover__sn{font-family:var(--fh);font-size:30px;font-weight:800;color:var(--a);line-height:1}
+.cover__sl{font-size:11px;color:rgba(255,255,255,.35);margin-top:3px}
+
+/* Executive Summary */
+.chal-sol{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:40px}
+.csp{border-radius:var(--rmd);padding:28px}
+.csp--c{background:#FFF7ED;border:1px solid #FED7AA}
+.csp--s{background:#ECFDF5;border:1px solid #A7F3D0}
+.csp h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+.csp--c h4{color:#C2410C} .csp--s h4{color:#059669}
+.csp ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.csp li{font-size:13px;color:var(--ink);line-height:1.5;display:flex;gap:8px;align-items:flex-start}
+.csp li::before{content:'—';color:var(--mu);font-size:11px;flex-shrink:0;margin-top:2px}
+
+/* KPI bar */
+.kpi-bar{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--bd);border-radius:var(--rlg);overflow:hidden;margin-top:48px}
+.kpi-cell{padding:32px 28px;border-right:1px solid var(--bd);position:relative}
+.kpi-cell:last-child{border-right:none}
+.kpi-n{font-family:var(--fh);font-size:44px;font-weight:800;letter-spacing:-.03em;color:var(--p);line-height:1}
+.kpi-n span{color:var(--s)}
+.kpi-l{font-size:12px;color:var(--mu);margin-top:6px;line-height:1.4}
+.kpi-acc{position:absolute;bottom:0;left:28px;width:28px;height:2px;background:var(--a);border-radius:2px}
+
+/* Executive Dashboard */
+.dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+.dash-card{background:var(--card);border:1px solid var(--bd);border-radius:var(--rlg);padding:24px 22px;box-shadow:var(--sh0);position:relative;overflow:hidden;transition:box-shadow .2s,transform .2s}
+.dash-card:hover{box-shadow:var(--sh1);transform:translateY(-2px)}
+.dash-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--s);border-radius:0}
+.dash-card--a::before{background:var(--a)}
+.dash-card--v::before{background:#8B5CF6}
+.dash-icon{width:36px;height:36px;background:var(--su);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--s);margin-bottom:14px}
+.dash-card--a .dash-icon{color:var(--a);background:#ECFDF5}
+.dash-card--v .dash-icon{color:#8B5CF6;background:#F5F3FF}
+.dash-val{font-family:var(--fh);font-size:22px;font-weight:800;color:var(--p);line-height:1;letter-spacing:-.02em}
+.dash-lbl{font-size:11px;color:var(--mu);margin-top:5px;line-height:1.4}
+
+/* About */
+.about-quote{font-family:var(--fh);font-size:clamp(17px,2.5vw,24px);font-weight:600;line-height:1.45;color:var(--p);border-left:3px solid var(--a);padding-left:24px;margin:32px 0}
+.comp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:28px}
+.comp-item{display:flex;align-items:flex-start;gap:12px;padding:18px;background:var(--su);border-radius:var(--rmd);border:1px solid var(--bd)}
+.comp-ico{flex-shrink:0;width:34px;height:34px;display:flex;align-items:center;justify-content:center;background:var(--card);border-radius:8px;border:1px solid var(--bd);color:var(--s)}
+
+/* Philosophy */
+.phil-card{background:var(--p);color:#fff;border-radius:var(--rlg);padding:44px 48px;position:relative;overflow:hidden}
+.phil-card::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.18)0%,transparent 70%)}
+.phil-p{padding:20px 0;border-bottom:1px solid rgba(255,255,255,.07);display:grid;grid-template-columns:44px 1fr;gap:20px;align-items:start}
+.phil-p:last-child{border-bottom:none;padding-bottom:0}
+.phil-n{font-family:var(--fm);font-size:10px;color:var(--a);letter-spacing:.1em;padding-top:3px}
+.phil-p h4{color:#fff;font-size:15px;margin-bottom:5px}
+.phil-p p{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6}
+
+/* Timeline */
+.tl{position:relative;padding-left:44px}
+.tl::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,var(--s),var(--a))}
+.tl-item{position:relative;margin-bottom:44px}
+.tl-item:last-child{margin-bottom:0}
+.tl-dot{position:absolute;left:-50px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--s);border:2px solid var(--bg);box-shadow:0 0 0 3px rgba(37,99,235,.2)}
+.tl-dot--a{background:var(--a);box-shadow:0 0 0 3px rgba(16,185,129,.2)}
+.tl-date{font-family:var(--fm);font-size:10px;color:var(--mu);letter-spacing:.1em;margin-bottom:6px}
+.tl-item h3{font-size:17px;margin-bottom:6px}
+
+/* Ecosystem diagram */
+.eco-wrap{background:var(--p);border-radius:var(--rlg);overflow:hidden;box-shadow:var(--sh2)}
+.eco-hdr{padding:28px 36px 22px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between}
+.eco-hdr h3{color:#fff;font-size:13px;font-weight:600}
+.eco-svg{padding:36px}
+
+/* AI Engineering page */
+.ai-hero{background:linear-gradient(135deg,var(--p)0%,#1E3A5F 100%);border-radius:var(--rlg);padding:48px;position:relative;overflow:hidden;margin-bottom:40px}
+.ai-hero::before{content:'';position:absolute;top:-80px;right:-80px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(16,185,129,.15)0%,transparent 70%)}
+.ai-hero h2{color:#fff;position:relative;z-index:1}
+.ai-hero p{color:rgba(255,255,255,.55);font-size:15px;line-height:1.7;margin-top:14px;max-width:600px;position:relative;z-index:1}
+.ai-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;position:relative;z-index:1;margin-top:32px}
+.ai-col{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--rmd);padding:24px}
+.ai-col h4{color:var(--a);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px}
+.ai-col ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.ai-col li{font-size:12px;color:rgba(255,255,255,.55);line-height:1.5;display:flex;gap:8px}
+.ai-col li::before{content:'→';color:var(--a);flex-shrink:0;font-size:11px}
+
+/* Business Value callout */
+.bv-callout{background:linear-gradient(135deg,#EFF6FF,#F0FDF4);border:1px solid #BFDBFE;border-radius:var(--rmd);padding:28px 32px;margin:32px 0;display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.bv-item h5{font-family:var(--fm);font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--s);margin-bottom:6px}
+.bv-item p{font-size:13px;color:var(--ink);line-height:1.6}
+
+/* Engineering Decision Record */
+.edr{background:var(--su);border:1px solid var(--bd);border-radius:var(--rlg);padding:32px;margin-top:32px}
+.edr__hdr{font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);padding-bottom:14px;margin-bottom:24px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px}
+.edr__hdr::before{content:'';display:block;width:20px;height:2px;background:var(--s);border-radius:2px}
+.edr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.edr-cell{background:var(--card);border:1px solid var(--bd);border-radius:var(--rmd);padding:20px}
+.edr-cell h5{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--p);margin-bottom:8px}
+.edr-cell p{font-size:12px;color:var(--ink);line-height:1.6}
+.edr-cell--chosen{border-color:var(--a);background:#ECFDF5}
+.edr-cell--chosen h5{color:#059669}
+.edr-tradeoff{margin-top:16px;padding:16px 20px;background:var(--card);border:1px solid var(--bd);border-radius:var(--rmd);border-left:3px solid #D97706}
+.edr-tradeoff h5{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#D97706;margin-bottom:6px}
+.edr-tradeoff p{font-size:12px;color:var(--ink);line-height:1.6}
+
+/* Project chapter */
+.chapter{padding:88px 0;border-bottom:1px solid var(--bd)}
+.chapter:last-child{border-bottom:none}
+.ch-num{font-family:var(--fh);font-size:clamp(80px,12vw,150px);font-weight:800;line-height:1;color:var(--bd);letter-spacing:-.05em;margin-bottom:-16px}
+.ch-hdr{position:relative;z-index:1;margin-bottom:48px}
+.ch-sec{font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--bd);display:block}
+.impact-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}
+.imp-c{padding:24px 20px;border-radius:var(--rmd);background:var(--su);border:1px solid var(--bd);text-align:center}
+.imp-n{font-family:var(--fh);font-size:32px;font-weight:800;letter-spacing:-.03em;color:var(--s);line-height:1}
+.imp-l{font-size:11px;color:var(--mu);margin-top:5px;line-height:1.4}
+
+/* Workflow */
+.wflow{display:flex;flex-direction:column;gap:0;margin:24px 0}
+.wf-step{display:flex;align-items:flex-start;gap:18px}
+.wf-spine{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:34px}
+.wf-node{width:34px;height:34px;border-radius:50%;background:var(--s);display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+.wf-node--a{background:var(--a)}
+.wf-conn{width:1px;flex-grow:1;min-height:20px;background:var(--bd);margin:3px 0}
+.wf-body{padding-bottom:20px;flex:1}
+.wf-body h4{font-size:14px;font-weight:600;color:var(--p);margin-bottom:3px}
+.wf-body p{font-size:12px;color:var(--mu);line-height:1.5}
+
+/* Lessons */
+.lessons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+.les-c{background:var(--su);border:1px solid var(--bd);border-radius:var(--rmd);padding:22px}
+.les-c h5{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.les-c.w h5{color:#059669} .les-c.ch h5{color:#D97706}
+.les-c p{font-size:12px;color:var(--ink);line-height:1.6}
+
+/* Tech stack */
+.tcat{margin-bottom:40px}
+.tcat h4{font-family:var(--fm);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);padding-bottom:10px;margin-bottom:16px;border-bottom:1px solid var(--bd)}
+.tcards{display:flex;flex-wrap:wrap;gap:10px}
+.tcard{display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--card);border:1px solid var(--bd);border-radius:var(--rmd);box-shadow:var(--sh0);transition:all .2s;cursor:default}
+.tcard:hover{border-color:var(--s);box-shadow:var(--sh1);transform:translateY(-1px)}
+.tcard__ico{width:30px;height:30px;border-radius:7px;background:var(--su);display:flex;align-items:center;justify-content:center;color:var(--s);flex-shrink:0}
+.tcard__n{font-family:var(--fh);font-size:13px;font-weight:700;color:var(--p)}
+.tcard__t{font-size:11px;color:var(--mu)}
+
+/* Impact hero */
+.imp-hero{background:var(--p);padding:88px 0}
+.imp-hero-kpis{display:grid;grid-template-columns:repeat(4,1fr);background:rgba(255,255,255,.04);border-radius:var(--rlg);overflow:hidden;border:1px solid rgba(255,255,255,.06);margin-top:44px}
+.ihk{background:var(--p);padding:36px 28px;border-right:1px solid rgba(255,255,255,.06)}
+.ihk:last-child{border-right:none}
+.ihk__n{font-family:var(--fh);font-size:clamp(32px,5vw,56px);font-weight:800;letter-spacing:-.04em;color:#fff;line-height:1}
+.ihk__n em{font-style:normal;color:var(--a)}
+.ihk__l{font-size:12px;color:rgba(255,255,255,.4);margin-top:10px;line-height:1.4}
+.imp-sec{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
+.imp-sc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--rmd);padding:24px}
+.imp-sc h4{color:#fff;font-size:14px;margin-bottom:7px}
+.imp-sc p{font-size:12px;color:rgba(255,255,255,.4);line-height:1.6}
+
+/* Vision */
+.vis-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+.vis-c{padding:32px 26px;background:var(--card);border:1px solid var(--bd);border-radius:var(--rlg);box-shadow:var(--sh0);position:relative;overflow:hidden;transition:box-shadow .2s,transform .2s}
+.vis-c:hover{box-shadow:var(--sh1);transform:translateY(-2px)}
+.vis-c::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--s)}
+.vis-c:nth-child(2)::after{background:var(--a)}
+.vis-c:nth-child(3)::after{background:#8B5CF6}
+.vis-ico{width:44px;height:44px;background:var(--su);border-radius:var(--rmd);display:flex;align-items:center;justify-content:center;color:var(--s);margin-bottom:18px}
+.vis-c:nth-child(2) .vis-ico{color:var(--a);background:#ECFDF5}
+.vis-c:nth-child(3) .vis-ico{color:#8B5CF6;background:#F5F3FF}
+.vis-c h3{font-size:16px;margin-bottom:8px}
+.vis-c p{font-size:13px;color:var(--mu);line-height:1.6}
+
+/* Contact */
+.contact{background:var(--p);padding:88px 0 56px}
+.ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.ct-name{font-family:var(--fh);font-size:34px;font-weight:800;color:#fff;letter-spacing:-.02em;margin-bottom:6px}
+.ct-role{color:rgba(255,255,255,.4);font-size:15px;margin-bottom:28px}
+.ct-links{display:flex;flex-direction:column;gap:14px}
+.ct-link{display:flex;align-items:center;gap:13px;color:rgba(255,255,255,.6);font-size:14px;text-decoration:none;transition:color .15s}
+.ct-link:hover{color:var(--a)}
+.ct-link-ico{width:34px;height:34px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ct-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--rlg);padding:32px}
+.ct-card .label--wh{display:block;margin-bottom:14px}
+.ct-card h3{color:#fff;font-size:18px;margin-bottom:10px}
+.ct-card p{color:rgba(255,255,255,.4);font-size:13px;line-height:1.7}
+.footer-btm{margin-top:56px;padding-top:22px;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between}
+.footer-btm p{font-size:11px;color:rgba(255,255,255,.2)}
+
+/* Architecture diagrams */
+.arch-panel{background:var(--su);border:1px solid var(--bd);border-radius:var(--rlg);padding:32px;margin:24px 0;overflow:hidden}
+
+/* Print */
+@media print{
+  .nav{display:none}
+  .cover{min-height:auto;page-break-after:always}
+  .chapter,.sec{page-break-inside:avoid}
+  body{font-size:11pt}
+  @page{margin:15mm;size:A4}
+  .card:hover,.dash-card:hover,.tcard:hover,.vis-c:hover{transform:none}
+}
+
+/* Responsive */
+@media(max-width:900px){
+  .g2,.chal-sol,.ct-grid,.ai-cols,.edr-grid,.lessons{grid-template-columns:1fr;gap:20px}
+  .g3,.g4,.kpi-bar,.imp-hero-kpis,.dash-grid,.imp-sec,.vis-cards{grid-template-columns:1fr 1fr}
+  .nav__links{display:none}
+  .kpi-cell,.ihk{border-right:none;border-bottom:1px solid var(--bd)}
+  .ihk{border-bottom:1px solid rgba(255,255,255,.06)}
+  .cover__meta{flex-direction:column;gap:28px;align-items:flex-start}
+  .bv-callout{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  :root{--pad:18px}
+  .g3,.g4,.kpi-bar,.imp-hero-kpis,.dash-grid,.imp-sec,.vis-cards,.comp-grid,.impact-strip,.edr-grid{grid-template-columns:1fr}
+  .sec,.chapter{padding:60px 0}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__i">
+    <span class="nav__brand">Midhun Rajan<span class="nav__sub">· Manufacturing &amp; Process Engineer</span></span>
+    <ul class="nav__links">
+      <li><a href="#summary">Summary</a></li>
+      <li><a href="#dashboard">Dashboard</a></li>
+      <li><a href="#ecosystem">Ecosystem</a></li>
+      <li><a href="#ai-method">AI Method</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#impact">Impact</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- COVER -->
+<section class="cover" aria-labelledby="cover-title">
+  <div class="cover__grid" aria-hidden="true"></div>
+  <div class="cover__orb cover__orb--1" aria-hidden="true"></div>
+  <div class="cover__orb cover__orb--2" aria-hidden="true"></div>
+  <div class="cover__c">
+    <p class="cover__eye">Digital Transformation Portfolio · 2024</p>
+    <h1 class="cover__title d1" id="cover-title">Manufacturing<br><em>Digital</em><br>Transformation</h1>
+    <p class="cover__sub">An AI-augmented manufacturing ecosystem — from ERP integration to production-floor intelligence</p>
+    <div class="cover__meta">
+      <div>
+        <p class="cover__name">Midhun Rajan</p>
+        <p class="cover__role">Manufacturing &amp; Process Engineer · Digital Transformation | Manufacturing Systems | AI &amp; Industrial Software</p>
+      </div>
+      <div class="cover__stats">
+        <div><p class="cover__sn">60+</p><p class="cover__sl">Production Users</p></div>
+        <div><p class="cover__sn">75%</p><p class="cover__sl">Reduction in<br>Design Time</p></div>
+        <div><p class="cover__sn">4</p><p class="cover__sl">Major Systems<br>Delivered</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXECUTIVE SUMMARY -->
+<section class="sec sec--alt" id="summary">
+  <div class="wrap">
+    <div class="sh">
+      <span class="label">Executive Summary</span>
+      <h2 class="h1" style="margin-top:12px;max-width:680px">From disconnected operations to a connected manufacturing intelligence platform</h2>
+    </div>
+    <div class="chal-sol">
+      <div class="csp csp--c">
+        <h4>Before · Challenges</h4>
+        <ul>
+          <li>All production documentation paper-based — no digital audit trail</li>
+          <li>ERP data siloed — no programmatic access for custom systems</li>
+          <li>Engineering validation repetitive, manual, measured in days</li>
+          <li>Management reporting relied on manually compiled spreadsheets</li>
+          <li>No real-time visibility into production status or quality outcomes</li>
+        </ul>
+      </div>
+      <div class="csp csp--s">
+        <h4>After · Outcomes</h4>
+        <ul>
+          <li>Unified SQL-backed platform bridging ERP, operations, quality &amp; management</li>
+          <li>60+ operators using digital job packs — zero paper in production</li>
+          <li>AI-assisted validation reduces repeat design time by 75%</li>
+          <li>Live dashboards replace daily manual reporting cycles</li>
+          <li>Single connected ecosystem — not four separate applications</li>
+        </ul>
+      </div>
+    </div>
+    <div class="kpi-bar anim">
+      <div class="kpi-cell"><div class="kpi-n">60<span>+</span></div><div class="kpi-l">Active production users</div><div class="kpi-acc"></div></div>
+      <div class="kpi-cell"><div class="kpi-n">75<span>%</span></div><div class="kpi-l">Reduction in repeat design time</div><div class="kpi-acc"></div></div>
+      <div class="kpi-cell"><div class="kpi-n" style="font-size:26px;line-height:1.3">Digital</div><div class="kpi-l">Job packs replacing all paper documentation</div><div class="kpi-acc"></div></div>
+      <div class="kpi-cell"><div class="kpi-n" style="font-size:26px;line-height:1.3">Live</div><div class="kpi-l">Production dashboards for management</div><div class="kpi-acc"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXECUTIVE DASHBOARD -->
+<section class="sec" id="dashboard">
+  <div class="wrap">
+    <div class="sh">
+      <span class="label">Transformation at a Glance</span>
+      <h2 class="h2" style="margin-top:12px">Programme overview — the essentials at a single view</h2>
+    </div>
+    <div class="dash-grid">
+      <div class="dash-card anim anim-d1">
+        <div class="dash-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+        <div class="dash-val">Ongoing</div>
+        <div class="dash-lbl">Programme Duration</div>
+      </div>
+      <div class="dash-card anim anim-d2">
+        <div class="dash-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div>
+        <div class="dash-val">Mfg &amp; Process</div>
+        <div class="dash-lbl">Official Role · Manufacturing &amp; Process Engineer</div>
+      </div>
+      <div class="dash-card dash-card--a anim anim-d3">
+        <div class="dash-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <div class="dash-val">60+</div>
+        <div class="dash-lbl">Manufacturing Users on Platform</div>
+      </div>
+      <div class="dash-card dash-card--a anim anim-d4">
+        <div class="dash-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <div class="dash-val">4</div>
+        <div class="dash-lbl">Major Systems Delivered</div>
+      </div>
+      <div class="dash-card anim anim-d1">
+        <div class="dash-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div>
+        <div class="dash-val">MIE Trak</div>
+        <div class="dash-lbl">ERP Platform · Integrated via REST API</div>
+      </div>
+      <div class="dash-card dash-card--v anim anim-d2">
+        <div class="dash-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <div class="dash-val">Claude</div>
+        <div class="dash-lbl">AI Integration · Engineering Development Partner</div>
+      </div>
+      <div class="dash-card anim anim-d3">
+        <div class="dash-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <div class="dash-val">Python · SQL</div>
+        <div class="dash-lbl">Core Stack · Flask · FastAPI · Android · REST</div>
+      </div>
+      <div class="dash-card dash-card--a anim anim-d4">
+        <div class="dash-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+        <div class="dash-val">75%</div>
+        <div class="dash-lbl">Key Business Outcome · Repeat Design Time Reduction</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="sec sec--alt" id="about">
+  <div class="wrap">
+    <div class="g2" style="gap:72px">
+      <div>
+        <span class="label" style="display:block;margin-bottom:16px">About</span>
+        <h2 class="h2">Manufacturing engineer. Systems architect. AI practitioner.</h2>
+        <blockquote class="about-quote">"The most valuable skill today is connecting systems — machines, data, people, and AI — into something that actually works on the factory floor."</blockquote>
+        <p class="body">Midhun Rajan is a Manufacturing &amp; Process Engineer who has led the end-to-end digital transformation of a precision manufacturing environment. His work spans the full transformation stack — from ERP integration and database architecture through to AI-assisted engineering and production-floor digital tooling.</p>
+        <p class="body" style="margin-top:12px">Every system described in this portfolio operates in production, is used by real operators, and solves real manufacturing problems.</p>
+      </div>
+      <div>
+        <span class="ch-sec" style="margin-top:60px;display:block">Core Competencies</span>
+        <div class="comp-grid">
+          <div class="comp-item anim"><div class="comp-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg></div><div><p style="font-size:13px;font-weight:600;color:var(--p)">System Architecture</p><p class="sm">ERP integration · SQL design · REST API</p></div></div>
+          <div class="comp-item anim anim-d1"><div class="comp-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div><p style="font-size:13px;font-weight:600;color:var(--p)">Manufacturing Processes</p><p class="sm">Production workflows · Quality systems</p></div></div>
+          <div class="comp-item anim anim-d2"><div class="comp-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h2M21 12h2M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div><div><p style="font-size:13px;font-weight:600;color:var(--p)">AI Prompt Engineering</p><p class="sm">LLM integration · Validation · Workflow</p></div></div>
+          <div class="comp-item anim anim-d3"><div class="comp-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div><p style="font-size:13px;font-weight:600;color:var(--p)">User Adoption</p><p class="sm">Training · Deployment · Change management</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="sec" id="philosophy">
+  <div class="wrap">
+    <div class="g2" style="gap:60px;align-items:start">
+      <div>
+        <span class="label" style="display:block;margin-bottom:16px">Transformation Philosophy</span>
+        <h2 class="h2">Five principles that guide every system built</h2>
+        <p class="body" style="margin-top:20px">Digital transformation in manufacturing fails not from technical shortcomings, but from systems built in isolation from the floor. These principles reflect lessons from real deployments.</p>
+      </div>
+      <div class="phil-card anim">
+        <div class="phil-p"><span class="phil-n">01</span><div><h4>Production first, technology second</h4><p>Every system starts with a manufacturing problem. If it doesn't improve something for operators, engineers, or management — it doesn't get built.</p></div></div>
+        <div class="phil-p"><span class="phil-n">02</span><div><h4>Integration over isolation</h4><p>Standalone tools create new silos. Every new capability connects to the ERP, to existing data, to the people who use it every day.</p></div></div>
+        <div class="phil-p"><span class="phil-n">03</span><div><h4>AI augments; it does not replace</h4><p>AI extends the capability of engineers and operators — it does not remove decision-making from the people who understand the process.</p></div></div>
+        <div class="phil-p"><span class="phil-n">04</span><div><h4>Ship early, improve continuously</h4><p>A working system used imperfectly delivers more value than a perfect system that never reaches the floor.</p></div></div>
+        <div class="phil-p"><span class="phil-n">05</span><div><h4>Transparent about how it was built</h4><p>Modern engineering means directing AI effectively — selecting tools, validating outputs, taking full responsibility for what is deployed.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="sec sec--alt" id="timeline">
+  <div class="wrap">
+    <div class="sh"><span class="label">Transformation Timeline</span><h2 class="h2" style="margin-top:12px;max-width:560px">A progressive build — each phase unlocking the next</h2></div>
+    <div class="g2" style="gap:72px;align-items:start">
+      <div class="tl">
+        <div class="tl-item anim">
+          <div class="tl-dot"></div>
+          <p class="tl-date">Phase 1 · Foundation</p>
+          <h3>ERP Integration &amp; SQL Architecture</h3>
+          <p class="body" style="margin-top:6px">Structured SQL schema, REST API connections to MIE Trak ERP, and the core platform backbone that all subsequent systems build upon.</p>
+          <div class="badges" style="margin-top:10px"><span class="badge">MIE Trak</span><span class="badge">SQL Server</span><span class="badge">REST API</span></div>
+        </div>
+        <div class="tl-item anim anim-d1">
+          <div class="tl-dot"></div>
+          <p class="tl-date">Phase 2 · Digital Operations</p>
+          <h3>Digital Job Packs &amp; Operator Platform</h3>
+          <p class="body" style="margin-top:6px">Replaced paper-based production documentation. Operators receive, review, and sign off work orders digitally via Android terminals.</p>
+          <div class="badges" style="margin-top:10px"><span class="badge">Python</span><span class="badge">Flask</span><span class="badge">Android</span></div>
+        </div>
+        <div class="tl-item anim anim-d2">
+          <div class="tl-dot tl-dot--a"></div>
+          <p class="tl-date">Phase 3 · Intelligence</p>
+          <h3>AI Engineering Validation</h3>
+          <p class="body" style="margin-top:6px">AI-assisted validation integrated into the engineering workflow. 75% reduction in repeat design time.</p>
+          <div class="badges" style="margin-top:10px"><span class="badge badge--b">Claude AI</span><span class="badge">OpenCascade</span><span class="badge">FastAPI</span></div>
+        </div>
+        <div class="tl-item anim anim-d3">
+          <div class="tl-dot tl-dot--a"></div>
+          <p class="tl-date">Phase 4 · Visibility</p>
+          <h3>Management Dashboards</h3>
+          <p class="body" style="margin-top:6px">Real-time production dashboards connecting quality, throughput, and capacity into a single live management view.</p>
+          <div class="badges" style="margin-top:10px"><span class="badge">Dashboards</span><span class="badge">KPI Reporting</span></div>
+        </div>
+      </div>
+      <div style="padding-top:60px">
+        <div class="card card--al anim" style="margin-bottom:18px">
+          <p class="label label--mu" style="margin-bottom:10px">Architectural principle</p>
+          <p class="body">All four phases share a single SQL data layer — deliberately avoiding the distributed data silos that characterise most manufacturing IT landscapes. Every system speaks the same language.</p>
+        </div>
+        <div class="card card--bl anim anim-d1" style="padding:22px">
+          <p style="font-size:13px;font-weight:600;color:var(--s);margin-bottom:8px">Phased approach rationale</p>
+          <p class="sm" style="color:var(--ink)">Each phase was independently valuable while building toward an integrated whole — reducing risk and accelerating deployment. No phase required the success of a prior phase to deliver value.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM DIAGRAM -->
+<section class="sec" id="ecosystem">
+  <div class="wrap">
+    <div class="sh">
+      <span class="label">Manufacturing Digital Ecosystem</span>
+      <h2 class="h2" style="margin-top:12px;max-width:600px">One connected platform — not four separate applications</h2>
+      <p class="body" style="margin-top:14px;max-width:580px">Every component connects to a shared SQL data layer, eliminating the information silos that fragment manufacturing operations. This is the architecture behind everything in this portfolio.</p>
+    </div>
+    <div class="eco-wrap anim">
+      <div class="eco-hdr">
+        <h3>System Architecture · Manufacturing Intelligence Platform</h3>
+        <div class="badges"><span class="badge badge--b">Live System</span><span class="badge badge--g">60+ Users</span></div>
+      </div>
+      <div class="eco-svg">
+        <svg viewBox="0 0 940 520" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block" aria-label="Manufacturing Digital Ecosystem Architecture">
+          <defs>
+            <filter id="sh" x="-10%" y="-10%" width="120%" height="120%">
+              <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="rgba(0,0,0,0.25)" flood-opacity="1"/>
+            </filter>
+            <marker id="arr" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5 z" fill="rgba(255,255,255,0.25)"/></marker>
+            <marker id="arr-b" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5 z" fill="#3B82F6"/></marker>
+            <marker id="arr-g" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5 z" fill="#10B981"/></marker>
+          </defs>
+
+          <!-- ERP -->
+          <g transform="translate(345,20)" filter="url(#sh)">
+            <rect width="250" height="70" rx="12" fill="#1E3A5F" stroke="#3B82F6" stroke-width="1.5"/>
+            <text x="125" y="28" text-anchor="middle" fill="#93C5FD" font-family="Manrope,sans-serif" font-weight="700" font-size="14">MIE Trak ERP</text>
+            <text x="125" y="48" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="Inter,sans-serif" font-size="11">Enterprise Resource Planning · Source of Record</text>
+          </g>
+          <!-- ERP→SQL -->
+          <line x1="470" y1="90" x2="470" y2="140" stroke="#3B82F6" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-b)"/>
+          <rect x="380" y="108" width="80" height="16" rx="4" fill="#0F172A"/>
+          <text x="420" y="120" text-anchor="middle" fill="#3B82F6" font-family="JetBrains Mono,monospace" font-size="9">REST API</text>
+
+          <!-- SQL Layer -->
+          <g transform="translate(280,140)" filter="url(#sh)">
+            <rect width="380" height="70" rx="12" fill="rgba(37,99,235,0.18)" stroke="rgba(37,99,235,0.5)" stroke-width="1.5"/>
+            <text x="190" y="28" text-anchor="middle" fill="#93C5FD" font-family="Manrope,sans-serif" font-weight="700" font-size="14">SQL Server · Unified Data Layer</text>
+            <text x="190" y="48" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="Inter,sans-serif" font-size="11">Shared schema · Single source of truth · All systems read/write here</text>
+          </g>
+          <!-- SQL→Platform -->
+          <line x1="470" y1="210" x2="470" y2="260" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" marker-end="url(#arr)"/>
+
+          <!-- Platform -->
+          <g transform="translate(260,260)" filter="url(#sh)">
+            <rect width="420" height="70" rx="12" fill="#1F2937" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+            <text x="210" y="28" text-anchor="middle" fill="#fff" font-family="Manrope,sans-serif" font-weight="700" font-size="15">Manufacturing Platform</text>
+            <text x="210" y="48" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="Inter,sans-serif" font-size="11">Python · Flask · FastAPI · REST · Windows Server</text>
+          </g>
+
+          <!-- Branches -->
+          <path d="M280 295 Q100 295 100 375" stroke="rgba(16,185,129,0.5)" stroke-width="1.5" fill="none" stroke-dasharray="5,3" marker-end="url(#arr-g)"/>
+          <line x1="370" y1="330" x2="290" y2="380" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" marker-end="url(#arr)"/>
+          <line x1="570" y1="330" x2="650" y2="380" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" marker-end="url(#arr)"/>
+          <path d="M660 295 Q840 295 840 375" stroke="rgba(37,99,235,0.5)" stroke-width="1.5" fill="none" stroke-dasharray="5,3" marker-end="url(#arr-b)"/>
+
+          <!-- AI Validation -->
+          <g transform="translate(20,375)" filter="url(#sh)">
+            <rect width="180" height="70" rx="12" fill="rgba(16,185,129,0.14)" stroke="rgba(16,185,129,0.4)" stroke-width="1.5"/>
+            <text x="90" y="27" text-anchor="middle" fill="#34D399" font-family="Manrope,sans-serif" font-weight="700" font-size="13">AI Validation</text>
+            <text x="90" y="45" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="Inter,sans-serif" font-size="10">Claude · OpenCascade · FastAPI</text>
+          </g>
+
+          <!-- Digital Job Packs -->
+          <g transform="translate(220,380)" filter="url(#sh)">
+            <rect width="180" height="70" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+            <text x="90" y="27" text-anchor="middle" fill="#fff" font-family="Manrope,sans-serif" font-weight="700" font-size="13">Digital Job Packs</text>
+            <text x="90" y="45" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="Inter,sans-serif" font-size="10">Paperless production · Flask</text>
+          </g>
+
+          <!-- Dashboards -->
+          <g transform="translate(540,380)" filter="url(#sh)">
+            <rect width="180" height="70" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+            <text x="90" y="27" text-anchor="middle" fill="#fff" font-family="Manrope,sans-serif" font-weight="700" font-size="13">Live Dashboards</text>
+            <text x="90" y="45" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="Inter,sans-serif" font-size="10">KPI · Production · Quality</text>
+          </g>
+
+          <!-- Mobile -->
+          <g transform="translate(740,375)" filter="url(#sh)">
+            <rect width="180" height="70" rx="12" fill="rgba(37,99,235,0.14)" stroke="rgba(37,99,235,0.35)" stroke-width="1.5"/>
+            <text x="90" y="27" text-anchor="middle" fill="#93C5FD" font-family="Manrope,sans-serif" font-weight="700" font-size="13">Mobile Interface</text>
+            <text x="90" y="45" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="Inter,sans-serif" font-size="10">Android · Operator Terminals</text>
+          </g>
+
+          <!-- User Labels -->
+          <g transform="translate(0,468)">
+            <rect x="30" width="140" height="28" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+            <text x="100" y="18" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter,sans-serif" font-size="11">Engineers</text>
+            <rect x="235" width="160" height="28" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+            <text x="315" y="18" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter,sans-serif" font-size="11">Operators · 60+</text>
+            <rect x="550" width="140" height="28" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+            <text x="620" y="18" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter,sans-serif" font-size="11">Management</text>
+            <rect x="755" width="140" height="28" rx="6" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+            <text x="825" y="18" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter,sans-serif" font-size="11">Operations</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI-AUGMENTED ENGINEERING -->
+<section class="sec sec--alt" id="ai-method">
+  <div class="wrap">
+    <div class="sh">
+      <span class="label">AI-Augmented Engineering</span>
+      <h2 class="h2" style="margin-top:12px;max-width:620px">A modern engineering methodology — transparent, accountable, effective</h2>
+    </div>
+    <div class="ai-hero">
+      <h2 class="h2" style="color:#fff;max-width:600px">Built with AI as a development partner — not a replacement for engineering judgement</h2>
+      <p>The software described in this portfolio was developed using AI-assisted engineering. Claude was used as a development partner throughout implementation — generating code, reasoning through architecture decisions, and accelerating delivery. This is not hidden or minimised — it is presented as an example of how modern engineers work effectively.</p>
+      <div class="ai-cols">
+        <div class="ai-col">
+          <h4>Midhun Rajan Led</h4>
+          <ul>
+            <li>Identifying manufacturing problems</li>
+            <li>Defining business requirements</li>
+            <li>Designing system architecture</li>
+            <li>ERP integration strategy</li>
+            <li>SQL schema design</li>
+            <li>Workflow design</li>
+            <li>AI prompt engineering</li>
+            <li>Testing &amp; validation</li>
+            <li>Deployment</li>
+            <li>User adoption &amp; training</li>
+            <li>Continuous improvement</li>
+          </ul>
+        </div>
+        <div class="ai-col">
+          <h4>Claude Contributed</h4>
+          <ul>
+            <li>Code generation &amp; implementation</li>
+            <li>Architecture reasoning support</li>
+            <li>Documentation drafting</li>
+            <li>Code review &amp; debugging</li>
+            <li>API design patterns</li>
+            <li>Test case generation</li>
+            <li>Technical problem-solving</li>
+          </ul>
+        </div>
+        <div class="ai-col">
+          <h4>Why This Matters</h4>
+          <ul>
+            <li>Knowing how to direct AI is now a core engineering skill</li>
+            <li>AI accelerates implementation — it does not replace judgement</li>
+            <li>Every output was reviewed, tested, and validated</li>
+            <li>Full engineering accountability remained throughout</li>
+            <li>This is the model for effective modern engineering practice</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="g3" style="gap:16px">
+      <div class="card card--al anim"><p style="font-size:12px;font-weight:700;color:var(--a);margin-bottom:8px;text-transform:uppercase;letter-spacing:.08em">Problem Identification</p><p class="body">All manufacturing problems identified, scoped, and prioritised by Midhun Rajan — grounded in operational experience and floor-level knowledge.</p></div>
+      <div class="card card--al anim anim-d1"><p style="font-size:12px;font-weight:700;color:var(--a);margin-bottom:8px;text-transform:uppercase;letter-spacing:.08em">Engineering Accountability</p><p class="body">Requirements, architecture, integration, testing, validation and deployment decisions were made and owned by Midhun Rajan throughout every project.</p></div>
+      <div class="card card--al anim anim-d2"><p style="font-size:12px;font-weight:700;color:var(--a);margin-bottom:8px;text-transform:uppercase;letter-spacing:.08em">AI as Force Multiplier</p><p class="body">Claude accelerated implementation. The result is systems built faster, with greater technical depth, than would have been achievable alone — without compromising quality.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<div id="projects">
+
+<!-- PROJECT 01 -->
+<section class="chapter sec--alt">
+  <div class="wrap">
+    <div class="ch-num anim">01</div>
+    <div class="ch-hdr">
+      <span class="label">Project Chapter · Phase 1</span>
+      <h2 class="h1" style="margin-top:8px">ERP Integration &amp; SQL Data Platform</h2>
+      <div class="badges" style="margin-top:14px"><span class="badge badge--b">MIE Trak</span><span class="badge">SQL Server</span><span class="badge">REST API</span><span class="badge">Python</span></div>
+    </div>
+
+    <div class="bv-callout anim">
+      <div class="bv-item"><h5>Why it was built</h5><p>No programmatic access to ERP data existed. Every downstream system would require a reliable, structured data layer — this was built first, intentionally.</p></div>
+      <div class="bv-item"><h5>Who benefited</h5><p>Every subsequent system in the ecosystem. Without this foundation, none of the phases that followed would have been possible.</p></div>
+      <div class="bv-item"><h5>Operational problem solved</h5><p>Eliminated the manual data extraction that made reporting delayed and inaccurate. Created a live, queryable data layer across the entire operation.</p></div>
+      <div class="bv-item"><h5>Manufacturing improvement</h5><p>Established the single source of truth that now underpins all production tracking, quality inspection, and management reporting.</p></div>
+    </div>
+
+    <div class="chal-sol">
+      <div class="csp csp--c"><h4>Challenge</h4><ul>
+        <li>ERP data existed in isolation — no API, no programmatic access</li>
+        <li>All workflows manual, with no digital touchpoints beyond data entry</li>
+        <li>No common data layer for custom systems to build on</li>
+        <li>Reporting required manual extraction — delayed and error-prone</li>
+      </ul></div>
+      <div class="csp csp--s"><h4>Solution</h4><ul>
+        <li>Structured SQL schema mirroring and extending the ERP data model</li>
+        <li>REST API endpoints enabling bidirectional communication with MIE Trak</li>
+        <li>Shared platform data layer consumed by all downstream systems</li>
+        <li>Single source of truth for production data across the organisation</li>
+      </ul></div>
+    </div>
+
+    <span class="ch-sec">Architecture</span>
+    <div class="arch-panel">
+      <svg viewBox="0 0 840 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+        <defs>
+          <filter id="sh2" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.08)"/></filter>
+          <marker id="a2" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5 z" fill="#6B7280"/></marker>
+          <marker id="a2b" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5 z" fill="#2563EB"/></marker>
+          <marker id="a2g" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L0,7 L7,3.5 z" fill="#10B981"/></marker>
+        </defs>
+        <!-- Nodes -->
+        <g transform="translate(20,25)" filter="url(#sh2)"><rect width="160" height="70" rx="10" fill="#1E3A5F" stroke="#3B82F6" stroke-width="1.5"/><text x="80" y="30" text-anchor="middle" fill="#93C5FD" font-family="Manrope,sans-serif" font-weight="700" font-size="13">MIE Trak ERP</text><text x="80" y="50" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="Inter,sans-serif" font-size="10">Source of record</text></g>
+        <line x1="180" y1="60" x2="230" y2="60" stroke="#3B82F6" stroke-width="1.5" marker-end="url(#a2b)"/>
+        <g transform="translate(230,25)" filter="url(#sh2)"><rect width="160" height="70" rx="10" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5"/><text x="80" y="30" text-anchor="middle" fill="#2563EB" font-family="Manrope,sans-serif" font-weight="700" font-size="13">REST API Layer</text><text x="80" y="50" text-anchor="middle" fill="#6B7280" font-family="Inter,sans-serif" font-size="10">Python · Flask · Auth</text></g>
+        <line x1="390" y1="60" x2="440" y2="60" stroke="#6B7280" stroke-width="1.5" marker-end="url(#a2)"/>
+        <g transform="translate(440,25)" filter="url(#sh2)"><rect width="160" height="70" rx="10" fill="#F8FAFC" stroke="#E5E7EB" stroke-width="1.5"/><text x="80" y="30" text-anchor="middle" fill="#111827" font-family="Manrope,sans-serif" font-weight="700" font-size="13">SQL Data Layer</text><text x="80" y="50" text-anchor="middle" fill="#6B7280" font-family="Inter,sans-serif" font-size="10">SQL Server · Shared schema</text></g>
+        <line x1="600" y1="60" x2="650" y2="60" stroke="#10B981" stroke-width="1.5" marker-end="url(#a2g)"/>
+        <g transform="translate(650,25)" filter="url(#sh2)"><rect width="170" height="70" rx="10" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1.5"/><text x="85" y="30" text-anchor="middle" fill="#059669" font-family="Manrope,sans-serif" font-weight="700" font-size="13">Platform Services</text><text x="85" y="50" text-anchor="middle" fill="#6B7280" font-family="Inter,sans-serif" font-size="10">All downstream applications</text></g>
+      </svg>
+    </div>
+
+    <div class="g2" style="gap:28px;margin-top:28px">
+      <div>
+        <span class="ch-sec">Implementation Notes</span>
+        <p class="body">API-first design: each ERP entity — work orders, parts, routings, customers — mapped to structured SQL tables with appropriate relationships. Error handling, retry logic, and data validation built in from the start.</p>
+      </div>
+      <div>
+        <span class="ch-sec">Key Decisions</span>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="card" style="padding:18px"><p style="font-size:13px;font-weight:600;margin-bottom:4px">Decoupled architecture</p><p class="sm">SQL layer survives ERP changes without rewriting consumer systems.</p></div>
+          <div class="card" style="padding:18px"><p style="font-size:13px;font-weight:600;margin-bottom:4px">Schema-first design</p><p class="sm">All data models defined and reviewed before any application code was written.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="edr anim">
+      <div class="edr__hdr">Engineering Decision Record · EDR-01 · Data Architecture Pattern</div>
+      <div class="edr-grid">
+        <div class="edr-cell"><h5>Problem</h5><p>How to make ERP data accessible to multiple custom systems without creating tight coupling to the ERP vendor's schema and API.</p></div>
+        <div class="edr-cell"><h5>Options Considered</h5><p><strong>A.</strong> Direct ERP API calls from each app.<br><strong>B.</strong> Shared SQL abstraction layer.<br><strong>C.</strong> Message queue / event bus.</p></div>
+        <div class="edr-cell edr-cell--chosen"><h5>✓ Chosen · Option B</h5><p>Shared SQL abstraction layer with REST API endpoints. All systems read/write through this layer — not directly to ERP.</p></div>
+      </div>
+      <div class="edr-tradeoff">
+        <h5>Trade-offs &amp; Lessons</h5>
+        <p>The SQL layer adds a synchronisation step — ERP changes must propagate. In practice this was manageable and the benefit (full control over schema, query performance, and downstream API stability) far outweighed the cost. Data quality gaps in historical ERP data required additional normalisation logic not anticipated at the start.</p>
+      </div>
+    </div>
+
+    <span class="ch-sec" style="margin-top:32px;display:block">Lessons Learned</span>
+    <div class="lessons">
+      <div class="les-c w"><h5>What Worked</h5><p>Building the SQL schema as an independent, well-documented layer made all subsequent systems faster to build. This investment paid back many times over.</p></div>
+      <div class="les-c ch"><h5>Challenges Encountered</h5><p>ERP data quality issues were more significant than anticipated — historical records used some fields inconsistently, requiring additional normalisation before the platform could rely on them.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT 02 -->
+<section class="chapter">
+  <div class="wrap">
+    <div class="ch-num anim">02</div>
+    <div class="ch-hdr">
+      <span class="label">Project Chapter · Phase 2</span>
+      <h2 class="h1" style="margin-top:8px">Digital Job Packs &amp; Operator Platform</h2>
+      <div class="badges" style="margin-top:14px"><span class="badge badge--b">Android</span><span class="badge">Python</span><span class="badge">Flask</span><span class="badge">REST API</span><span class="badge">MIE Trak</span></div>
+    </div>
+
+    <div class="bv-callout anim">
+      <div class="bv-item"><h5>Why it was built</h5><p>Paper-based job packs meant no real-time visibility, no audit trail, and significant re-printing overhead when work orders changed.</p></div>
+      <div class="bv-item"><h5>Who benefited</h5><p>60+ production operators, production managers, and quality teams — all gained a live, digital view of every job on the floor.</p></div>
+      <div class="bv-item"><h5>Operational problem solved</h5><p>Eliminated paper distribution, removed manual sign-off filing, and gave management a live production status view for the first time.</p></div>
+      <div class="bv-item"><h5>Manufacturing improvement</h5><p>Work order amendments now propagate instantly to operator devices — no re-printing, no risk of operators working from outdated documentation.</p></div>
+    </div>
+
+    <div class="chal-sol">
+      <div class="csp csp--c"><h4>Challenge</h4><ul>
+        <li>All production documentation paper-based — no digital audit trail</li>
+        <li>No operator visibility of real-time work order status</li>
+        <li>Amendments required re-printing and redistribution</li>
+        <li>No live production tracking available to management</li>
+      </ul></div>
+      <div class="csp csp--s"><h4>Solution</h4><ul>
+        <li>Android terminal application with live ERP data integration</li>
+        <li>Digital job packs: operations, drawings, quality requirements on-device</li>
+        <li>Digital sign-off creates auditable trail with timestamps</li>
+        <li>Production status updates in real time — visible on dashboards</li>
+      </ul></div>
+    </div>
+
+    <span class="ch-sec">Production Workflow</span>
+    <div class="wflow">
+      <div class="wf-step"><div class="wf-spine"><div class="wf-node"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6"/></svg></div><div class="wf-conn"></div></div><div class="wf-body"><h4>Work Order Created in MIE Trak</h4><p>Customer order generates work order with routing, part number, and scheduling data.</p></div></div>
+      <div class="wf-step"><div class="wf-spine"><div class="wf-node"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 12h6"/></svg></div><div class="wf-conn"></div></div><div class="wf-body"><h4>Platform Assembles Digital Job Pack</h4><p>Manufacturing Platform pulls work order via API — operations, materials, quality requirements, drawing reference.</p></div></div>
+      <div class="wf-step"><div class="wf-spine"><div class="wf-node"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div><div class="wf-conn"></div></div><div class="wf-body"><h4>Operator Receives on Android Terminal</h4><p>Job appears on device. Operator reviews all operations and quality requirements — no paper.</p></div></div>
+      <div class="wf-step"><div class="wf-spine"><div class="wf-node wf-node--a"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div><div class="wf-conn"></div></div><div class="wf-body"><h4>Digital Sign-Off &amp; Quality Inspection</h4><p>Each operation signed off digitally with timestamp and operator ID. Quality steps recorded.</p></div></div>
+      <div class="wf-step"><div class="wf-spine"><div class="wf-node wf-node--a"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div></div><div class="wf-body"><h4>Live Status Update &amp; ERP Write-Back</h4><p>Production status updates to management dashboards in real time. On completion, ERP is updated automatically.</p></div></div>
+    </div>
+
+    <div class="impact-strip">
+      <div class="imp-c anim"><div class="imp-n">60+</div><div class="imp-l">Active production users on the platform</div></div>
+      <div class="imp-c anim anim-d1"><div class="imp-n">0</div><div class="imp-l">Paper job packs in active production</div></div>
+      <div class="imp-c anim anim-d2"><div class="imp-n">Live</div><div class="imp-l">Real-time production status visibility</div></div>
+    </div>
+
+    <div class="edr anim">
+      <div class="edr__hdr">Engineering Decision Record · EDR-02 · Mobile Platform Selection</div>
+      <div class="edr-grid">
+        <div class="edr-cell"><h5>Problem</h5><p>Which platform to use for operator terminals — dedicated hardware, browser-based, or native mobile — given factory floor conditions and connectivity constraints.</p></div>
+        <div class="edr-cell"><h5>Options Considered</h5><p><strong>A.</strong> Browser-based (any device).<br><strong>B.</strong> Native Android application.<br><strong>C.</strong> Dedicated industrial HMI terminals.</p></div>
+        <div class="edr-cell edr-cell--chosen"><h5>✓ Chosen · Option B</h5><p>Native Android — ruggedised tablets with offline capability, familiar interaction model for operators, and full control over the user experience.</p></div>
+      </div>
+      <div class="edr-tradeoff">
+        <h5>Trade-offs &amp; Lessons</h5>
+        <p>Native Android required handling intermittent factory floor connectivity — the application was revised to cache job data locally and sync when connected. Operator involvement during design prevented significant interface rework post-deployment. Connectivity handling was the single largest technical challenge and was underestimated at the outset.</p>
+      </div>
+    </div>
+
+    <span class="ch-sec" style="margin-top:32px;display:block">Lessons Learned</span>
+    <div class="lessons">
+      <div class="les-c w"><h5>What Worked</h5><p>Involving operators in interface design during development — not post-launch — led to significantly higher adoption rates than typical enterprise software rollouts.</p></div>
+      <div class="les-c ch"><h5>Challenges Encountered</h5><p>Connectivity reliability on the factory floor required careful offline-first design. The application was substantially revised to handle intermittent network conditions gracefully.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT 03 -->
+<section class="chapter sec--alt">
+  <div class="wrap">
+    <div class="ch-num anim">03</div>
+    <div class="ch-hdr">
+      <span class="label">Project Chapter · Phase 3</span>
+      <h2 class="h1" style="margin-top:8px">AI Engineering Validation Tool</h2>
+      <div class="badges" style="margin-top:14px"><span class="badge badge--g">Claude AI</span><span class="badge badge--b">ChatGPT</span><span class="badge">OpenCascade</span><span class="badge">FastAPI</span><span class="badge">Python</span></div>
+    </div>
+
+    <div class="bv-callout anim">
+      <div class="bv-item"><h5>Why it was built</h5><p>Repetitive engineering validation tasks consumed significant time. Similar assessments were being repeated for common design patterns with no tooling to accelerate them.</p></div>
+      <div class="bv-item"><h5>Who benefited</h5><p>Engineering team — freed from repetitive validation cycles to focus on higher-value problem-solving and continuous improvement.</p></div>
+      <div class="bv-item"><h5>Operational problem solved</h5><p>Transformed design feedback from a days-long cycle to a minutes-long one. Reduced the volume of designs reaching the shop floor with avoidable issues.</p></div>
+      <div class="bv-item"><h5>Manufacturing improvement</h5><p>Earlier identification of manufacturability issues reduces rework, material waste, and production floor disruption caused by designs that cannot be manufactured as specified.</p></div>
+    </div>
+
+    <div class="chal-sol">
+      <div class="csp csp--c"><h4>Challenge</h4><ul>
+        <li>Engineering validation was a recurring bottleneck — repetitive for common patterns</li>
+        <li>Manufacturability knowledge existed in engineers' heads, not in accessible systems</li>
+        <li>Design feedback cycles measured in days, not hours</li>
+        <li>No tooling to assist with geometric or process validation pre-production</li>
+      </ul></div>
+      <div class="csp csp--s"><h4>Solution</h4><ul>
+        <li>AI-assisted validation tool using Claude as the language model backend</li>
+        <li>OpenCascade integration for geometric analysis of design files</li>
+        <li>Structured validation feedback within minutes</li>
+        <li>Engineers review and override outputs — AI augments, not decides</li>
+      </ul></div>
+    </div>
+
+    <div class="impact-strip">
+      <div class="imp-c anim"><div class="imp-n">75%</div><div class="imp-l">Reduction in repeat design validation time</div></div>
+      <div class="imp-c anim anim-d1"><div class="imp-n">Minutes</div><div class="imp-l">Feedback cycle vs. days previously</div></div>
+      <div class="imp-c anim anim-d2"><div class="imp-n">AI</div><div class="imp-l">Integrated into daily engineering workflow</div></div>
+    </div>
+
+    <div class="edr anim">
+      <div class="edr__hdr">Engineering Decision Record · EDR-03 · AI Integration Pattern</div>
+      <div class="edr-grid">
+        <div class="edr-cell"><h5>Problem</h5><p>How to integrate AI validation in a way that engineers trust, use consistently, and that provides manufacturing-domain-relevant responses rather than generic LLM output.</p></div>
+        <div class="edr-cell"><h5>Options Considered</h5><p><strong>A.</strong> Generic LLM API with minimal context.<br><strong>B.</strong> Fine-tuned model on manufacturing data.<br><strong>C.</strong> Structured prompting with domain context injection.</p></div>
+        <div class="edr-cell edr-cell--chosen"><h5>✓ Chosen · Option C</h5><p>Structured prompting with manufacturing context injection — specific constraint sets, materials data, and process parameters provided per request.</p></div>
+      </div>
+      <div class="edr-tradeoff">
+        <h5>Trade-offs &amp; Lessons</h5>
+        <p>Prompt engineering required significant iteration — early prompts produced overly generic responses. Domain-specific context injection was the key improvement. Framing the AI as an assistant (not a decision-maker) was critical to engineer adoption. Fine-tuning was considered but rejected due to cost and data volume requirements; structured prompting achieved the required quality with far lower overhead.</p>
+      </div>
+    </div>
+
+    <span class="ch-sec" style="margin-top:32px;display:block">Lessons Learned</span>
+    <div class="lessons">
+      <div class="les-c w"><h5>What Worked</h5><p>Framing the tool as an assistant to engineers rather than a replacement led to consistent daily adoption. Engineers trusted outputs they could interrogate and override.</p></div>
+      <div class="les-c ch"><h5>Challenges Encountered</h5><p>Early prompt versions were too generic. Manufacturing-specific context injection required multiple iteration cycles before outputs were consistently useful for production decisions.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT 04 -->
+<section class="chapter">
+  <div class="wrap">
+    <div class="ch-num anim">04</div>
+    <div class="ch-hdr">
+      <span class="label">Project Chapter · Phase 4</span>
+      <h2 class="h1" style="margin-top:8px">Management Dashboards &amp; Production Intelligence</h2>
+      <div class="badges" style="margin-top:14px"><span class="badge">Python</span><span class="badge badge--b">SQL Server</span><span class="badge">REST API</span><span class="badge">Windows Server</span></div>
+    </div>
+
+    <div class="bv-callout anim">
+      <div class="bv-item"><h5>Why it was built</h5><p>Management relied on manually compiled spreadsheets with no real-time data. Decisions were made on yesterday's information at best — often last week's.</p></div>
+      <div class="bv-item"><h5>Who benefited</h5><p>Production managers and senior leadership gained live visibility for the first time — enabling proactive rather than reactive operational decisions.</p></div>
+      <div class="bv-item"><h5>Operational problem solved</h5><p>Eliminated hours spent on manual report compilation. Status that previously took a day to produce now updates automatically in real time.</p></div>
+      <div class="bv-item"><h5>Manufacturing improvement</h5><p>Bottlenecks and quality issues now visible as they occur — enabling faster intervention and reducing the cost of production disruptions.</p></div>
+    </div>
+
+    <div class="chal-sol">
+      <div class="csp csp--c"><h4>Challenge</h4><ul>
+        <li>Reporting relied on manually compiled spreadsheets — delayed and inaccurate</li>
+        <li>No single view of production status, quality, and capacity</li>
+        <li>No visibility into at-risk jobs before they became problems</li>
+        <li>Management decisions based on stale data</li>
+      </ul></div>
+      <div class="csp csp--s"><h4>Solution</h4><ul>
+        <li>Live dashboards pulling from the unified SQL data layer</li>
+        <li>Production status, quality, and throughput visible in real time</li>
+        <li>Configurable KPI views for different management stakeholders</li>
+        <li>Deployed on internal Windows Server infrastructure</li>
+      </ul></div>
+    </div>
+
+    <div class="impact-strip">
+      <div class="imp-c anim"><div class="imp-n">Live</div><div class="imp-l">Real-time data replacing daily manual reports</div></div>
+      <div class="imp-c anim anim-d1"><div class="imp-n">Single</div><div class="imp-l">Unified view of production, quality &amp; capacity</div></div>
+      <div class="imp-c anim anim-d2"><div class="imp-n">Zero</div><div class="imp-l">Manual report compilation hours removed</div></div>
+    </div>
+
+    <div class="edr anim">
+      <div class="edr__hdr">Engineering Decision Record · EDR-04 · Dashboard Architecture</div>
+      <div class="edr-grid">
+        <div class="edr-cell"><h5>Problem</h5><p>How to deliver live management dashboards without building a separate BI platform — keeping the system within the existing infrastructure footprint.</p></div>
+        <div class="edr-cell"><h5>Options Considered</h5><p><strong>A.</strong> Third-party BI tool (Power BI, Tableau).<br><strong>B.</strong> Custom Python dashboard served from the platform.<br><strong>C.</strong> Excel with live SQL connections.</p></div>
+        <div class="edr-cell edr-cell--chosen"><h5>✓ Chosen · Option B</h5><p>Custom Python dashboards served from the existing platform — full control, no licence cost, consistent with the platform architecture already in place.</p></div>
+      </div>
+      <div class="edr-tradeoff">
+        <h5>Trade-offs &amp; Lessons</h5>
+        <p>Building custom dashboards required more initial development time than configuring a BI tool, but produced a result that was precisely tailored to the manufacturing environment. Data completeness was an early challenge — dashboards highlighted gaps in historical data quality, requiring upstream data entry improvements before reporting could be fully trusted.</p>
+      </div>
+    </div>
+
+    <span class="ch-sec" style="margin-top:32px;display:block">Lessons Learned</span>
+    <div class="lessons">
+      <div class="les-c w"><h5>What Worked</h5><p>Designing dashboards with management stakeholders present — rather than presenting finished views — meant the final product answered the questions they actually had.</p></div>
+      <div class="les-c ch"><h5>Challenges Encountered</h5><p>Data completeness was a challenge initially. Dashboards surface data quality gaps — which required upstream process improvements before reporting could be fully trusted.</p></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- TECH STACK -->
+<section class="sec sec--alt" id="stack">
+  <div class="wrap">
+    <div class="sh"><span class="label">Technology Stack</span><h2 class="h2" style="margin-top:12px">The tools that power the platform — each chosen for a reason</h2></div>
+    <div class="tcat"><h4>Languages &amp; Runtimes</h4>
+      <div class="tcards">
+        <div class="tcard anim"><div class="tcard__ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div><div class="tcard__n">Python</div><div class="tcard__t">Backend · Integration · Scripting</div></div></div>
+        <div class="tcard anim anim-d1"><div class="tcard__ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M12 8v8"/></svg></div><div><div class="tcard__n">SQL</div><div class="tcard__t">Database design · Queries</div></div></div>
+        <div class="tcard anim anim-d2"><div class="tcard__ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div><div><div class="tcard__n">Android</div><div class="tcard__t">Mobile operator interfaces</div></div></div>
+      </div>
+    </div>
+    <div class="tcat"><h4>Frameworks &amp; APIs</h4>
+      <div class="tcards">
+        <div class="tcard anim"><div class="tcard__ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div><div class="tcard__n">Flask</div><div class="tcard__t">Web framework · Platform APIs</div></div></div>
+        <div class="tcard anim anim-d1"><div class="tcard__ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><div><div class="tcard__n">FastAPI</div><div class="tcard__t">High-performance API services</div></div></div>
+        <div class="tcard anim anim-d2"><div class="tcard__ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg></div><div><div class="tcard__n">REST API</div><div class="tcard__t">ERP integration · Platform services</div></div></div>
+      </div>
+    </div>
+    <div class="tcat"><h4>Platforms &amp; Infrastructure</h4>
+      <div class="tcards">
+        <div class="tcard anim"><div class="tcard__ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div><div><div class="tcard__n">MIE Trak</div><div class="tcard__t">ERP · System of record</div></div></div>
+        <div class="tcard anim anim-d1"><div class="tcard__ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h18"/></svg></div><div><div class="tcard__n">SQL Server</div><div class="tcard__t">Shared data layer</div></div></div>
+        <div class="tcard anim anim-d2"><div class="tcard__ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 12h.01"/></svg></div><div><div class="tcard__n">Windows Server</div><div class="tcard__t">Deployment · Infrastructure</div></div></div>
+        <div class="tcard anim anim-d3"><div class="tcard__ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v2M12 20v2M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M2 12h2M20 12h2"/></svg></div><div><div class="tcard__n">OpenCascade</div><div class="tcard__t">Geometric modelling · CAD</div></div></div>
+        <div class="tcard anim anim-d4"><div class="tcard__ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg></div><div><div class="tcard__n">Git</div><div class="tcard__t">Version control</div></div></div>
+      </div>
+    </div>
+    <div class="tcat"><h4>AI &amp; Intelligence</h4>
+      <div class="tcards">
+        <div class="tcard anim" style="border-color:#A7F3D0"><div class="tcard__ico" style="color:var(--a);background:#ECFDF5"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div><div class="tcard__n">Claude</div><div class="tcard__t">AI validation · Dev partner</div></div></div>
+        <div class="tcard anim anim-d1" style="border-color:#BFDBFE"><div class="tcard__ico" style="color:var(--s);background:#EFF6FF"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div><div class="tcard__n">ChatGPT</div><div class="tcard__t">AI assistance · Workflow</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS IMPACT -->
+<section class="imp-hero" id="impact">
+  <div class="wrap">
+    <span class="label label--wh" style="display:block;margin-bottom:14px">Business Impact</span>
+    <h2 class="h1" style="color:#fff;max-width:600px">Measurable outcomes across every layer of the operation</h2>
+    <div class="imp-hero-kpis anim">
+      <div class="ihk"><div class="ihk__n">60<em>+</em></div><div class="ihk__l">Active daily users across production operations</div></div>
+      <div class="ihk"><div class="ihk__n">75<em>%</em></div><div class="ihk__l">Reduction in repeat engineering design time</div></div>
+      <div class="ihk"><div class="ihk__n" style="font-size:clamp(22px,3vw,40px)">Digital</div><div class="ihk__l">Job packs fully replacing paper-based production documentation</div></div>
+      <div class="ihk"><div class="ihk__n" style="font-size:clamp(22px,3vw,40px)">Live</div><div class="ihk__l">Real-time production dashboards for management</div></div>
+    </div>
+    <div class="imp-sec anim">
+      <div class="imp-sc"><h4>Operational Transformation</h4><p>A manufacturing environment that relied on paper and disconnected systems now operates with a connected digital platform used by every person on the production floor.</p></div>
+      <div class="imp-sc"><h4>Engineering Productivity</h4><p>AI-assisted validation has fundamentally changed how engineering time is spent — from repetitive assessment to higher-value problem-solving.</p></div>
+      <div class="imp-sc"><h4>Management Visibility</h4><p>Decisions that previously relied on end-of-day reports now use live production data. The shift from reactive to informed management is one of the most significant organisational changes delivered.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FUTURE VISION -->
+<section class="sec" id="vision">
+  <div class="wrap">
+    <div class="sh"><span class="label">Future Vision</span><h2 class="h2" style="margin-top:12px;max-width:580px">The next phase of the manufacturing intelligence platform</h2></div>
+    <div class="vis-cards">
+      <div class="vis-c anim"><div class="vis-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M12 8v4l3 3"/></svg></div><h3>Predictive Production Intelligence</h3><p>Extending the SQL data layer into predictive analytics — using historical production data to anticipate bottlenecks and quality issues before they occur.</p><div class="badges" style="margin-top:14px"><span class="badge">Machine Learning</span><span class="badge">SQL Analytics</span></div></div>
+      <div class="vis-c anim anim-d1"><div class="vis-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Expanded AI Engineering Suite</h3><p>Building on the validation tool to create a comprehensive AI engineering assistant covering design review, manufacturability feedback, and process optimisation.</p><div class="badges" style="margin-top:14px"><span class="badge badge--g">Claude API</span><span class="badge">OpenCascade</span></div></div>
+      <div class="vis-c anim anim-d2"><div class="vis-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 12h6M9 15h4"/></svg></div><h3>Supplier &amp; Customer Integration</h3><p>Extending the platform beyond the factory — connecting supplier delivery data and customer requirements directly into the production planning layer.</p><div class="badges" style="margin-top:14px"><span class="badge">API Integration</span><span class="badge">ERP Extension</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="ct-grid">
+      <div>
+        <p class="ct-name">Midhun Rajan</p>
+        <p class="ct-role">Manufacturing &amp; Process Engineer<br><span style="font-size:13px;color:rgba(255,255,255,.3)">Digital Transformation | Manufacturing Systems | AI &amp; Industrial Software</span></p>
+        <div class="ct-links">
+          <a class="ct-link" href="mailto:midhunrajan74@gmail.com">
+            <div class="ct-link-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            midhunrajan74@gmail.com
+          </a>
+          <a class="ct-link" href="tel:07445588889">
+            <div class="ct-link-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.7A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l1.46-1.46a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+            07445 588889
+          </a>
+          <a class="ct-link" href="https://www.linkedin.com/in/midhun-rajan-09a006145" target="_blank" rel="noopener">
+            <div class="ct-link-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></div>
+            linkedin.com/in/midhun-rajan-09a006145
+          </a>
+          <span class="ct-link">
+            <div class="ct-link-ico"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            Luton, Bedfordshire, United Kingdom
+          </span>
+        </div>
+      </div>
+      <div>
+        <div class="ct-card">
+          <span class="label label--wh">Open to opportunities</span>
+          <h3>Manufacturing digital transformation · AI-assisted engineering · Industrial software leadership</h3>
+          <p style="margin-top:10px">Available for senior engineering roles, transformation leadership positions, and consulting engagements where manufacturing operations and modern software capability are both required.</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-btm">
+      <p>© 2024 Midhun Rajan · Manufacturing Digital Transformation Portfolio</p>
+      <p>Built with AI-assisted engineering · Presented transparently</p>
+    </div>
+  </div>
+</section>
+
+<script>
+// Scroll-triggered animations
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.anim').forEach(el => io.observe(el));
+
+// Active nav
+const navLinks = document.querySelectorAll('.nav__links a');
+const secs = document.querySelectorAll('section[id], div[id="projects"]');
+const navObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      navLinks.forEach(l => l.classList.remove('active'));
+      const a = document.querySelector(`.nav__links a[href="#${e.target.id}"]`);
+      if(a) a.classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+secs.forEach(s => navObs.observe(s));
+</script>
+</body>
+</html>

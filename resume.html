@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Midhun Rajan — Executive Resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --p:#111827; --s:#2563EB; --a:#10B981; --bg:#F8FAFC; --card:#fff;
+  --mu:#6B7280; --bd:#E5E7EB; --su:#F1F5F9; --ink:#374151;
+  --fh:'Manrope',system-ui,sans-serif; --fb:'Inter',system-ui,sans-serif; --fm:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:15px}
+body{font-family:var(--fb);background:var(--bg);color:var(--p);-webkit-font-smoothing:antialiased}
+
+.page{max-width:880px;margin:36px auto;background:var(--card);box-shadow:0 8px 40px rgba(0,0,0,.1);border-radius:16px;overflow:hidden}
+
+/* Header */
+.hdr{background:var(--p);padding:48px 52px 40px;display:grid;grid-template-columns:1fr auto;gap:36px;align-items:start}
+.hdr__name{font-family:var(--fh);font-size:38px;font-weight:800;color:#fff;letter-spacing:-.03em;line-height:1.1}
+.hdr__title{font-size:14px;color:rgba(255,255,255,.45);margin-top:6px;font-weight:400;line-height:1.5}
+.hdr__brand{font-family:var(--fm);font-size:10px;color:var(--a);letter-spacing:.12em;margin-top:8px;text-transform:uppercase}
+.hdr__contact{display:flex;flex-direction:column;gap:9px;align-items:flex-end}
+.hdr__cl{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.5);font-size:12px;text-decoration:none;transition:color .15s}
+.hdr__cl:hover{color:var(--a)}
+.hdr__cl svg{flex-shrink:0;opacity:.6}
+
+/* Tag bar */
+.tagbar{background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.06);padding:14px 52px;display:flex;gap:7px;flex-wrap:wrap}
+.tag{font-family:var(--fm);font-size:10px;padding:3px 9px;border-radius:5px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.07)}
+
+/* Body */
+.body{display:grid;grid-template-columns:1fr 280px;gap:0}
+.main{padding:44px 44px 44px 52px;border-right:1px solid var(--bd)}
+.side{padding:44px 32px}
+
+/* Section blocks */
+.rsec{margin-bottom:40px}
+.rsec:last-child{margin-bottom:0}
+.rsec__lbl{font-family:var(--fm);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);padding-bottom:11px;margin-bottom:20px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:8px}
+.rsec__lbl::before{content:'';display:block;width:20px;height:2px;background:var(--s);border-radius:2px;flex-shrink:0}
+
+/* Profile */
+.profile{font-size:13px;color:var(--ink);line-height:1.75}
+
+/* Achievements */
+.ach-grid{display:flex;flex-direction:column;gap:6px}
+.ach-item{font-size:12.5px;color:var(--ink);line-height:1.55;display:flex;gap:10px;align-items:flex-start;padding:9px 12px;background:var(--su);border-radius:6px;border-left:3px solid var(--a)}
+.ach-item::before{content:'✓';color:var(--a);font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+
+/* Experience */
+.exp{margin-bottom:32px;padding-bottom:32px;border-bottom:1px solid var(--su)}
+.exp:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.exp__row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:3px}
+.exp__role{font-family:var(--fh);font-size:15px;font-weight:700;color:var(--p)}
+.exp__date{font-family:var(--fm);font-size:10px;color:var(--mu);white-space:nowrap;margin-top:3px;letter-spacing:.05em}
+.exp__org{font-size:12px;color:var(--s);font-weight:500;margin-bottom:10px}
+.exp__summary{font-size:13px;color:var(--ink);line-height:1.7;margin-bottom:10px}
+
+/* Impact groups */
+.imp-group{margin-bottom:14px}
+.imp-group__lbl{font-family:var(--fm);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--a);margin-bottom:6px}
+.bullets{list-style:none;display:flex;flex-direction:column;gap:5px}
+.bullets li{font-size:12.5px;color:var(--ink);line-height:1.55;display:flex;gap:8px;align-items:flex-start}
+.bullets li::before{content:'→';color:var(--a);font-size:11px;margin-top:2px;flex-shrink:0}
+
+.exp-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.etag{font-family:var(--fm);font-size:9px;padding:3px 7px;border-radius:4px;background:var(--su);color:var(--mu);border:1px solid var(--bd)}
+
+/* AI note */
+.ai-note{background:var(--su);border:1px solid var(--bd);border-left:3px solid var(--s);border-radius:8px;padding:14px 16px;margin-top:8px}
+.ai-note p{font-size:11.5px;color:var(--mu);line-height:1.6}
+.ai-note strong{color:var(--p);font-weight:600}
+
+/* Side */
+.side-lbl{font-family:var(--fm);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--mu);padding-bottom:10px;margin-bottom:14px;border-bottom:1px solid var(--bd)}
+.sside{margin-bottom:32px}
+.sside:last-child{margin-bottom:0}
+
+.kpi-b{background:var(--p);border-radius:10px;padding:18px 20px;margin-bottom:10px}
+.kpi-b__n{font-family:var(--fh);font-size:30px;font-weight:800;color:var(--a);letter-spacing:-.03em;line-height:1}
+.kpi-b__l{font-size:11px;color:rgba(255,255,255,.35);margin-top:4px;line-height:1.4}
+
+.sg{margin-bottom:14px}
+.sg__n{font-size:11px;font-weight:600;color:var(--p);margin-bottom:5px}
+.skills{display:flex;flex-wrap:wrap;gap:4px}
+.sp{font-family:var(--fm);font-size:9px;padding:3px 7px;background:var(--su);border:1px solid var(--bd);border-radius:4px;color:var(--ink)}
+.sp--b{background:#EFF6FF;border-color:#BFDBFE;color:var(--s)}
+.sp--g{background:#ECFDF5;border-color:#A7F3D0;color:#059669}
+
+.dom-list{list-style:none;display:flex;flex-direction:column;gap:7px}
+.dom-list li{display:flex;gap:7px;font-size:11.5px;color:var(--ink);line-height:1.45;align-items:flex-start}
+.dom-list li::before{content:'→';color:var(--s);font-size:10px;margin-top:2px;flex-shrink:0}
+
+/* Print */
+@media print{
+  body{background:#fff}
+  .page{margin:0;border-radius:0;box-shadow:none;max-width:none}
+  .hdr{padding:28px 36px}
+  .tagbar{padding:10px 36px}
+  .main{padding:28px 28px 28px 36px}
+  .side{padding:28px 24px}
+  @page{margin:10mm;size:A4}
+}
+@media(max-width:700px){
+  .page{margin:0;border-radius:0}
+  .hdr{grid-template-columns:1fr;padding:28px 24px}
+  .hdr__contact{align-items:flex-start}
+  .body{grid-template-columns:1fr}
+  .main{padding:28px 24px;border-right:none;border-bottom:1px solid var(--bd)}
+  .side{padding:28px 24px}
+  .tagbar{padding:12px 24px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="hdr">
+    <div>
+      <h1 class="hdr__name">Midhun Rajan</h1>
+      <p class="hdr__title">Manufacturing &amp; Process Engineer</p>
+      <p class="hdr__brand">Manufacturing Engineering · Business Systems · ERP Integration · Workflow Automation</p>
+    </div>
+    <div class="hdr__contact">
+      <a class="hdr__cl" href="mailto:midhunrajan74@gmail.com">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        midhunrajan74@gmail.com
+      </a>
+      <a class="hdr__cl" href="tel:07445588889">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.7A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l1.46-1.46a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        07445 588889
+      </a>
+      <a class="hdr__cl" href="https://www.linkedin.com/in/midhun-rajan-09a006145" target="_blank" rel="noopener">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        linkedin.com/in/midhun-rajan-09a006145
+      </a>
+      <span class="hdr__cl">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Luton, Bedfordshire, UK
+      </span>
+    </div>
+  </header>
+
+  <div class="tagbar">
+    <span class="tag">Manufacturing Engineering</span>
+    <span class="tag">Digital Transformation</span>
+    <span class="tag">ERP Integration</span>
+    <span class="tag">Manufacturing Systems</span>
+    <span class="tag">Workflow Automation</span>
+    <span class="tag">Business Applications</span>
+    <span class="tag">Python</span>
+    <span class="tag">Flask</span>
+    <span class="tag">SQL Server</span>
+    <span class="tag">Android</span>
+    <span class="tag">MIE Trak</span>
+  </div>
+
+  <div class="body">
+    <main class="main">
+
+      <!-- PROFESSIONAL PROFILE -->
+      <div class="rsec">
+        <div class="rsec__lbl">Professional Profile</div>
+        <p class="profile">Manufacturing &amp; Process Engineer with practical experience across the full precision sheet metal production cycle — CNC fibre laser cutting, tube laser processing, CNC press brake, welding, fabrication, assembly, SolidWorks design, DFM review, and laser nesting preparation. Applies that manufacturing foundation to identify operational inefficiencies and implement practical business systems: ERP-integrated production platforms, digitised operator workflows, real-time management dashboards, and document automation. Personally designed and deployed the Manufacturing Operations Platform, Manufacturing Intelligence Platform, Job Pack Automation System, and MIE Trak Document Management System — all in active daily use across production operations. Manufacturing expertise drives every system requirement. Technology is the means of delivery.</p>
+      </div>
+
+      <!-- SELECTED ACHIEVEMENTS -->
+      <div class="rsec">
+        <div class="rsec__lbl">Selected Achievements</div>
+        <div class="ach-grid">
+          <div class="ach-item">Digitised shop floor operations by designing and deploying Android-based production terminals — replacing paper job packs with digital workflows, improving traceability and establishing a live production audit trail.</div>
+          <div class="ach-item">Delivered four ERP-integrated manufacturing systems — Manufacturing Operations Platform, Manufacturing Intelligence Platform, Job Pack Automation System, and MIE Trak Document Management System — all in active daily use within the business.</div>
+          <div class="ach-item">Eliminated paper-based production documentation and manual end-of-shift reporting across the shop floor, connecting operator actions directly to MIE Trak ERP in real time.</div>
+          <div class="ach-item">Implemented real-time production intelligence dashboards giving management and supervisors live visibility of operator activity, work order status, and work centre performance — without requiring ERP access.</div>
+          <div class="ach-item">Automated engineering document management within MIE Trak — eliminating manual PDF filing, improving engineering document control, and ensuring every part record carries accurate, up-to-date documentation.</div>
+          <div class="ach-item">Supported ISO 9001, ISO 14001, and Cyber Essentials compliance initiatives within a precision sheet metal manufacturing environment.</div>
+        </div>
+      </div>
+
+      <!-- EXPERIENCE -->
+      <div class="rsec">
+        <div class="rsec__lbl">Experience</div>
+
+        <div class="exp">
+          <div class="exp__row">
+            <div class="exp__role">Manufacturing &amp; Process Engineer</div>
+            <div class="exp__date">Nov 2022 – Present</div>
+          </div>
+          <div class="exp__org">Ludwick Precision Ltd · Precision Sheet Metal Manufacturing</div>
+          <p class="exp__summary">Manufacturing &amp; Process Engineer practising across the full precision sheet metal production cycle while spearheading the company's digital transformation — designing and deploying multiple ERP-integrated manufacturing systems now used daily by production operators, supervisors, and management. Accountable for operational problem identification, system requirements, ERP data integration, testing, validation, deployment, and user adoption across every delivered platform.</p>
+
+          <div class="imp-group">
+            <div class="imp-group__lbl">Manufacturing &amp; Process Engineering</div>
+            <ul class="bullets">
+              <li>Operated across the full precision sheet metal production cycle — SolidWorks design and sheet metal modelling, DFM review, model preparation for laser nesting, CNC fibre laser cutting, tube laser processing, CNC press brake, welding, fabrication, and assembly</li>
+              <li>Applied hands-on process knowledge to define accurate system requirements and validate that every digital workflow reflected real production constraints — ensuring that engineering decisions were grounded in shop floor realities, not assumptions</li>
+              <li>Led continuous improvement initiatives, engineering change processes, and cross-functional collaboration with production supervisors, quality teams, and senior management</li>
+            </ul>
+          </div>
+
+          <div class="imp-group">
+            <div class="imp-group__lbl">Manufacturing Systems Delivered</div>
+            <ul class="bullets">
+              <li>Digitised production documentation by implementing Android-based operator terminals across the shop floor — replacing paper job packs with digital workflows, improving traceability, and eliminating manual filing through a live ERP-backed audit trail</li>
+              <li>Implemented Manufacturing Intelligence Platform providing live production status, operator efficiency tracking, work order overdue visibility, and work centre performance reporting across 19 operators and 14 work centres — replacing manual end-of-shift reporting</li>
+              <li>Designed and deployed Job Pack Automation System and MIE Trak Document Management System — reducing document preparation time from hours to seconds and eliminating manual ERP filing through Python-based workflow automation connected to live ERP data</li>
+            </ul>
+          </div>
+
+          <div class="imp-group">
+            <div class="imp-group__lbl">ERP Integration &amp; Systems</div>
+            <ul class="bullets">
+              <li>Developed SQL reporting queries and application data logic against the MIE Trak SQL Server database; implemented Flask-based REST APIs connecting the Manufacturing Operations Platform, Manufacturing Intelligence Platform, and all downstream manufacturing systems to live ERP data</li>
+              <li>Designed and implemented four production-ready manufacturing systems — Manufacturing Operations Platform, Manufacturing Intelligence Platform, Job Pack Automation System, and MIE Trak Document Management System — each solving a distinct operational problem and in active daily use</li>
+              <li>Supported on-premise server deployment and migration; maintained Git-managed codebase across all manufacturing systems throughout the transformation programme</li>
+            </ul>
+          </div>
+
+          <div class="imp-group">
+            <div class="imp-group__lbl">Delivery &amp; Adoption</div>
+            <ul class="bullets">
+              <li>Managed full end-to-end delivery across all systems — operational problem identification, requirements definition, system design, ERP integration, testing, validation, production deployment, and ongoing improvement — without external consultancy or dedicated development resource</li>
+              <li>Used Claude as an AI-assisted software development partner, accelerating implementation while retaining full engineering accountability for requirements, manufacturing decisions, integration architecture, and system validation throughout</li>
+              <li>Achieved full adoption across the production team through structured change management, operator involvement in the design process, and on-the-floor training</li>
+            </ul>
+          </div>
+
+          <div class="exp-tags">
+            <span class="etag">SolidWorks</span><span class="etag">Python</span><span class="etag">SQL Server</span><span class="etag">Flask</span><span class="etag">FastAPI</span><span class="etag">Android</span><span class="etag">MIE Trak</span><span class="etag">REST API</span><span class="etag">JavaScript</span><span class="etag">HTML</span><span class="etag">CSS</span><span class="etag">Brother SDK</span><span class="etag">OpenCascade</span><span class="etag">Windows Server</span><span class="etag">Git</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PREVIOUS EXPERIENCE -->
+      <div class="rsec">
+        <div class="rsec__lbl">Previous Experience</div>
+
+        <div class="exp">
+          <div class="exp__row">
+            <div class="exp__role">Design Engineer</div>
+            <div class="exp__date">Apr 2021 – Jun 2022</div>
+          </div>
+          <div class="exp__org">Dolphin Manufacturing LLC</div>
+          <ul class="bullets">
+            <li>Produced SolidWorks designs and sheet metal models for precision components; led DFM reviews and prepared models for laser nesting and CNC processing</li>
+            <li>Supported prototype development, engineering change processes, and cross-functional collaboration with production and quality teams</li>
+          </ul>
+        </div>
+
+        <div class="exp" style="margin-bottom:0;padding-bottom:0;border-bottom:none">
+          <div class="exp__row">
+            <div class="exp__role">Fabrication Engineer</div>
+            <div class="exp__date">Jul 2017 – Aug 2020</div>
+          </div>
+          <div class="exp__org">R.S. Franklin Industries</div>
+          <ul class="bullets">
+            <li>Hands-on production role covering CNC fibre laser cutting, tube laser processing, CNC press brake operations, welding, fabrication, and assembly</li>
+            <li>Built deep practical knowledge across the full sheet metal production cycle from raw material through to finished component</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- MANUFACTURING AUTOMATION & BUSINESS APPLICATIONS -->
+      <div class="rsec">
+        <div class="rsec__lbl">Manufacturing Automation &amp; Business Applications</div>
+
+        <div class="exp">
+          <div class="exp__row">
+            <div class="exp__role">Manufacturing Operations Platform</div>
+            <div class="exp__date">Android · Flask · MIE Trak</div>
+          </div>
+          <div class="exp__org">Shop floor digitisation · Android operator terminals · Live ERP integration</div>
+          <ul class="bullets">
+            <li>Designed and implemented Android-based operator terminals across the shop floor — operators clock in, track live job progress against work orders, access digital job packs, and sign off production work digitally, replacing all paper-based documentation and improving production traceability</li>
+            <li>Integrated Brother label printing SDK enabling move ticket generation directly from the terminal — eliminating handwritten labels, reducing duplicate data entry, and standardising part traceability across the production floor</li>
+            <li>Connected operator actions to MIE Trak ERP via REST API in real time — work order clock times, job progress, and production records updated automatically, eliminating manual data entry and improving the accuracy of live ERP production data</li>
+          </ul>
+        </div>
+
+        <div class="exp">
+          <div class="exp__row">
+            <div class="exp__role">Manufacturing Intelligence Platform</div>
+            <div class="exp__date">Flask · SQL Server · Windows Server</div>
+          </div>
+          <div class="exp__org">Production visibility · Executive dashboards · Real-time reporting</div>
+          <ul class="bullets">
+            <li>Implemented four management dashboard views — live shop floor monitoring, operator efficiency tracking, work order overdue flagging, and work centre load analysis — providing directors and supervisors with real-time operational visibility without requiring direct ERP access</li>
+            <li>Aggregates live production data from 19 operators and 14 work centres, replacing manual end-of-shift reporting and enabling faster, better-informed management decisions based on current rather than historical data</li>
+            <li>Built on the shared MIE Trak SQL reporting layer — operational data collected by the Manufacturing Operations Platform becomes executive intelligence with no additional integration overhead or data duplication</li>
+          </ul>
+        </div>
+
+        <div class="exp">
+          <div class="exp__row">
+            <div class="exp__role">Job Pack Automation System</div>
+            <div class="exp__date">Python · PDF Automation · MIE Trak SQL</div>
+          </div>
+          <div class="exp__org">Production planning automation · Document preparation · ERP-connected</div>
+          <ul class="bullets">
+            <li>Implemented automated job pack generation — user uploads an Excel file of part numbers; system queries the MIE Trak SQL Server database, locates corresponding assembly PDFs, and extracts only the relevant part drawings, reducing preparation time from hours to seconds</li>
+            <li>Assembles a single consolidated, print-ready manufacturing job pack from the retrieved documents automatically, eliminating manual document retrieval and sorting across multiple folder locations and removing a significant source of preparation errors</li>
+            <li>Reduced administrative burden on engineering and production planning; job pack preparation is now automated, consistent, and always connected to the current state of ERP data</li>
+          </ul>
+        </div>
+
+        <div class="exp" style="margin-bottom:0;padding-bottom:0;border-bottom:none">
+          <div class="exp__row">
+            <div class="exp__role">MIE Trak Document Management System</div>
+            <div class="exp__date">Python · MIE Trak API · ERP Automation</div>
+          </div>
+          <div class="exp__org">Engineering document control · Automated ERP filing · Part record management</div>
+          <ul class="bullets">
+            <li>Designed and deployed an internal document management system with drag-and-drop intake for PDFs, STEP files, and DXF files — system reads part numbers automatically from document metadata and filenames, eliminating manual input and misfiling</li>
+            <li>Organises engineering documents into the correct customer and part folder structure automatically and places PDFs and STEP files into their designated locations, improving engineering document control and ensuring consistent file organisation across the business</li>
+            <li>Automatically attaches files to the corresponding part record within MIE Trak ERP — every component has accurate, searchable, and up-to-date engineering documentation without any manual attachment process</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- AI ENGINEERING INITIATIVES -->
+      <div class="rsec">
+        <div class="rsec__lbl">AI Engineering Initiatives</div>
+
+        <div class="exp" style="margin-bottom:0;padding-bottom:0;border-bottom:none">
+          <p class="exp__summary" style="margin-bottom:14px">The following projects are currently under active development. Neither is deployed to production. AI is used as one tool within a broader engineering workflow — not as a replacement for manufacturing knowledge or engineering judgement.</p>
+          <div class="imp-group">
+            <div class="imp-group__lbl">AI Drawing Assistant · In Development</div>
+            <ul class="bullets">
+              <li>AI-assisted DFM and engineering drawing review tool integrating Claude with domain-specific manufacturing context — designed to surface potential manufacturing issues (bend radii, material thickness constraints, feature tolerances) before a job reaches the shop floor</li>
+              <li>Internal validation testing shows 75% reduction in repeat engineering design review time; full production deployment in progress</li>
+            </ul>
+          </div>
+          <div class="imp-group" style="margin-bottom:0">
+            <div class="imp-group__lbl">STEP File Estimator · In Development</div>
+            <ul class="bullets">
+              <li>Automated part cost estimation from STEP file geometry — uses OpenCascade to extract geometric characteristics (bounding box, surface area, bend count, material volume) and applies a manufacturing knowledge base to generate cost estimates</li>
+              <li>Intended to reduce manual quoting time and provide consistent, geometry-driven cost modelling; currently in development and validation against historical job data</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-note">
+        <p><strong>Engineering practice:</strong> Software across this programme was implemented using AI-assisted engineering — Claude used as a development partner under full engineering direction and accountability. Manufacturing requirements, integration architecture, ERP workflows, testing, and validation were led by Midhun Rajan throughout. This reflects a transparent and modern approach to engineering delivery in a resource-constrained environment.</p>
+      </div>
+
+    </main>
+
+    <aside class="side">
+
+      <div class="sside">
+        <div class="side-lbl">Impact at a Glance</div>
+        <div class="kpi-b"><div class="kpi-b__n">75%</div><div class="kpi-b__l">Reduction in repeat engineering design review time</div></div>
+        <div class="kpi-b"><div class="kpi-b__n">19</div><div class="kpi-b__l">Live operators monitored in real time</div></div>
+        <div class="kpi-b" style="margin-bottom:0"><div class="kpi-b__n">14</div><div class="kpi-b__l">Manufacturing work centres connected</div></div>
+      </div>
+
+      <div class="sside">
+        <div class="side-lbl">Technical Skills</div>
+        <div class="sg"><div class="sg__n">Manufacturing</div><div class="skills"><span class="sp sp--g">SolidWorks</span><span class="sp">Sheet Metal</span><span class="sp">DFM</span><span class="sp">CNC Laser</span><span class="sp">Press Brake</span></div></div>
+        <div class="sg"><div class="sg__n">Languages</div><div class="skills"><span class="sp sp--b">Python</span><span class="sp">SQL</span><span class="sp">JavaScript</span><span class="sp">HTML</span><span class="sp">CSS</span></div></div>
+        <div class="sg"><div class="sg__n">Frameworks</div><div class="skills"><span class="sp">Flask</span><span class="sp">FastAPI</span><span class="sp">REST API</span><span class="sp">Android</span></div></div>
+        <div class="sg"><div class="sg__n">Platforms</div><div class="skills"><span class="sp">MIE Trak</span><span class="sp">SQL Server</span><span class="sp">Windows Server</span><span class="sp">Brother SDK</span><span class="sp">OpenCascade</span><span class="sp">Git</span></div></div>
+        <div class="sg"><div class="sg__n">AI &amp; Intelligence</div><div class="skills"><span class="sp sp--g">Claude</span><span class="sp sp--b">OpenAI</span><span class="sp">Prompt Engineering</span></div></div>
+      </div>
+
+      <div class="sside">
+        <div class="side-lbl">Domain Expertise</div>
+        <ul class="dom-list">
+          <li>Precision sheet metal manufacturing — design through production</li>
+          <li>ERP integration &amp; manufacturing systems implementation</li>
+          <li>Production workflow digitisation &amp; process automation</li>
+          <li>Business process analysis &amp; operational systems design</li>
+          <li>SQL reporting queries &amp; ERP data integration</li>
+          <li>Engineering document control &amp; document automation</li>
+          <li>Management reporting &amp; real-time operational dashboards</li>
+          <li>User adoption, change management &amp; system validation</li>
+        </ul>
+      </div>
+
+      <div class="sside">
+        <div class="side-lbl">Education</div>
+        <ul class="dom-list">
+          <li>Bachelor of Mechanical Engineering</li>
+          <li>Master Diploma in Product Design</li>
+          <li>Professional Diploma in HVAC &amp; MEP Design</li>
+        </ul>
+      </div>
+
+      <div class="sside">
+        <div class="side-lbl">Contact</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <a href="mailto:midhunrajan74@gmail.com" style="font-size:11.5px;color:var(--s);text-decoration:none;display:flex;align-items:center;gap:7px">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            midhunrajan74@gmail.com
+          </a>
+          <a href="tel:07445588889" style="font-size:11.5px;color:var(--s);text-decoration:none;display:flex;align-items:center;gap:7px">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.7A2 2 0 012.18 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l1.46-1.46a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            07445 588889
+          </a>
+          <a href="https://www.linkedin.com/in/midhun-rajan-09a006145" target="_blank" rel="noopener" style="font-size:11.5px;color:var(--s);text-decoration:none;display:flex;align-items:center;gap:7px">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn Profile
+          </a>
+          <span style="font-size:11.5px;color:var(--mu);display:flex;align-items:center;gap:7px">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Luton, Bedfordshire, UK
+          </span>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+</div>
+</body></html>
