@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manufacturing Operations Platform — Midhun Rajan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ─────────────────────────────── */
+:root{
+  --ink:#F9FAFB; --ink2:rgba(249,250,251,.65); --ink3:rgba(249,250,251,.35);
+  --bg:#08090D; --bg2:#0D0E14; --bg3:#111218;
+  --bd:rgba(255,255,255,.07); --card:rgba(255,255,255,.045);
+  --s:#3B82F6; --a:#10B981; --pu:#8B5CF6; --or:#F59E0B; --re:#EF4444;
+  --fh:'Manrope',system-ui,sans-serif;
+  --fb:'Inter',system-ui,sans-serif;
+  --fm:'JetBrains Mono',monospace;
+  --mx:1160px; --pad:clamp(20px,5vw,72px);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--fb);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--s);text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--mx);margin:0 auto;padding:0 var(--pad)}
+
+/* ─── TYPE ───────────────────────────────── */
+.label{font-family:var(--fm);font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+.label--s{color:var(--s)} .label--a{color:var(--a)} .label--p{color:var(--pu)} .label--o{color:var(--or)}
+.d1{font-family:var(--fh);font-size:clamp(38px,7vw,86px);font-weight:800;letter-spacing:-.04em;line-height:1}
+.h1{font-family:var(--fh);font-size:clamp(26px,4vw,50px);font-weight:800;letter-spacing:-.03em;line-height:1.1}
+.h2{font-family:var(--fh);font-size:clamp(20px,3vw,34px);font-weight:700;letter-spacing:-.02em;line-height:1.2}
+.h3{font-family:var(--fh);font-size:clamp(15px,2vw,20px);font-weight:600;letter-spacing:-.01em}
+.body-lg{font-size:18px;line-height:1.7;color:var(--ink2)}
+.body{font-size:14px;line-height:1.7;color:var(--ink2)}
+.sm{font-size:12px;color:var(--ink3);line-height:1.6}
+
+/* ─── ANIMS ──────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes glow{0%,100%{opacity:.35}50%{opacity:.75}}
+@keyframes pulse-ring{0%{transform:scale(1);opacity:.5}100%{transform:scale(1.8);opacity:0}}
+@keyframes dash{to{stroke-dashoffset:-12}}
+.anim{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.anim.in{opacity:1;transform:translateY(0)}
+.d1c{transition-delay:.08s}.d2c{transition-delay:.18s}.d3c{transition-delay:.28s}.d4c{transition-delay:.38s}
+
+/* ─── NAV ────────────────────────────────── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(8,9,13,.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--bd)}
+.nav-i{max-width:var(--mx);margin:0 auto;padding:0 var(--pad);height:54px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{font-family:var(--fh);font-size:13px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:10px}
+.nav-brand span{color:var(--ink3);font-weight:400;font-size:12px}
+.nav-links{display:flex;align-items:center;gap:20px}
+.nav-link{font-size:12px;color:var(--ink3);transition:color .15s}
+.nav-link:hover{color:var(--ink)}
+.nav-cta{font-size:12px;font-weight:600;padding:7px 16px;background:var(--s);color:#fff;border-radius:8px;transition:opacity .15s}
+.nav-cta:hover{opacity:.85}
+
+/* ─── CHAPTER DOTS NAV ───────────────────── */
+.ch-nav{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:200;display:flex;flex-direction:column;gap:10px}
+.ch-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.15);cursor:pointer;transition:all .25s;border:1px solid transparent}
+.ch-dot.on{background:var(--s);transform:scale(1.5);border-color:rgba(59,130,246,.3)}
+.ch-dot:hover:not(.on){background:rgba(255,255,255,.35)}
+
+/* ─── HERO ───────────────────────────────── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:54px;position:relative;overflow:hidden;background:var(--bg)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,.035)1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.035)1px,transparent 1px);background-size:64px 64px;pointer-events:none}
+.hero-orb1{position:absolute;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.1) 0%,transparent 65%);top:-300px;right:-300px;pointer-events:none}
+.hero-orb2{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(16,185,129,.07) 0%,transparent 65%);bottom:-100px;left:-150px;pointer-events:none}
+.hero-c{position:relative;z-index:1;padding:60px var(--pad)}
+.hero-tag{font-family:var(--fm);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--a);margin-bottom:22px;display:flex;align-items:center;gap:10px}
+.hero-tag::before{content:'';display:block;width:28px;height:1px;background:var(--a)}
+.hero-kpis{margin-top:48px;display:flex;gap:48px;flex-wrap:wrap}
+.hero-kpi-n{font-family:var(--fh);font-size:36px;font-weight:800;line-height:1;color:#fff}
+.hero-kpi-n em{font-style:normal;color:var(--a)}
+.hero-kpi-l{font-size:11px;color:var(--ink3);margin-top:5px;max-width:120px;line-height:1.45}
+.hero-scroll{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--ink3);font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-family:var(--fm);animation:float 2.8s ease-in-out infinite}
+.hero-scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,var(--ink3),transparent)}
+
+/* ─── JOURNEY BAR ────────────────────────── */
+.journey{background:var(--bg2);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:32px 0;overflow-x:auto}
+.journey-steps{display:flex;align-items:center;padding:0 var(--pad);min-width:max-content;gap:0}
+.jnode{display:flex;align-items:center;gap:0}
+.jnode-inner{display:flex;flex-direction:column;align-items:center;gap:8px;padding:0 24px}
+.jnum{width:36px;height:36px;border-radius:50%;background:var(--bg3);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:11px;color:var(--ink3);transition:all .3s;flex-shrink:0}
+.jnum.on{background:var(--s);border-color:var(--s);color:#fff;box-shadow:0 0 16px rgba(59,130,246,.4)}
+.jlabel{font-size:10px;color:var(--ink3);white-space:nowrap;font-family:var(--fm);letter-spacing:.05em}
+.jarrow{color:rgba(255,255,255,.12);font-size:16px;flex-shrink:0}
+
+/* ─── CONTEXT SECTION ────────────────────── */
+.ctx{padding:100px 0;background:var(--bg)}
+.ctx-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.ctx-problem{background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.15);border-radius:16px;padding:32px}
+.ctx-solution{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);border-radius:16px;padding:32px}
+.ctx-list{list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:18px}
+.ctx-list li{font-size:13px;color:var(--ink2);display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.ctx-list li::before{font-size:12px;flex-shrink:0;margin-top:1px}
+.ctx-problem .ctx-list li::before{content:'✕';color:var(--re)}
+.ctx-solution .ctx-list li::before{content:'✓';color:var(--a)}
+
+/* ─── BEFORE / AFTER ─────────────────────── */
+.ba{padding:100px 0;background:var(--bg2);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd)}
+.ba-split{display:grid;grid-template-columns:1fr 1px 1fr;gap:0;border:1px solid var(--bd);border-radius:20px;overflow:hidden;background:var(--bg3)}
+.ba-divider{background:var(--bd);width:1px}
+.ba-side{padding:48px 40px}
+.ba-side--b .ba-head{color:var(--re)}
+.ba-side--a .ba-head{color:var(--a)}
+.ba-head{font-family:var(--fh);font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:28px;display:flex;align-items:center;gap:10px}
+.ba-head::before{content:'';display:block;width:24px;height:2px;background:currentColor}
+.ba-items{display:flex;flex-direction:column;gap:16px}
+.ba-item{display:flex;gap:12px;align-items:flex-start}
+.ba-item-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;background:rgba(255,255,255,.05)}
+.ba-item h5{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.ba-item p{font-size:11px;color:var(--ink3);line-height:1.5}
+
+/* ─── ECOSYSTEM DIAGRAM ──────────────────── */
+.eco{padding:100px 0;background:var(--bg)}
+.eco-svg-wrap{display:flex;justify-content:center;margin-top:60px}
+.eco-svg-wrap svg{max-width:680px;width:100%;height:auto}
+/* Animated flowing lines */
+.eco-path{stroke-dasharray:5 7;animation:dash 1.2s linear infinite}
+.eco-path.d1{animation-delay:0s}
+.eco-path.d2{animation-delay:-.2s}
+.eco-path.d3{animation-delay:-.4s}
+.eco-path.d4{animation-delay:-.6s}
+.eco-path.d5{animation-delay:-.3s}
+.eco-path.d6{animation-delay:-.5s}
+.eco-path.d7{animation-delay:-.1s}
+.eco-path.d8{animation-delay:-.35s}
+
+/* ─── ANDROID DEVICE ─────────────────────── */
+.device-wrap{display:flex;justify-content:center;align-items:center;position:relative}
+.device-float{animation:float 4.5s ease-in-out infinite}
+.device{
+  width:360px;
+  border-radius:24px;
+  padding:12px;
+  background:linear-gradient(145deg,#222,#181818);
+  box-shadow:0 30px 80px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.08),inset 0 1px 0 rgba(255,255,255,.06);
+  position:relative;flex-shrink:0
+}
+/* Subtle camera dot at top centre */
+.device::before{content:'';position:absolute;top:5px;left:50%;transform:translateX(-50%);width:6px;height:6px;border-radius:50%;background:#2a2a2a;box-shadow:inset 0 0 3px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.04);z-index:10}
+/* Side buttons */
+.dev-vol{position:absolute;left:-3px;top:88px;width:3px;height:36px;background:linear-gradient(180deg,#2e2e2e,#1e1e1e);border-radius:2px 0 0 2px}
+.dev-vol2{position:absolute;left:-3px;top:134px;width:3px;height:36px;background:linear-gradient(180deg,#2e2e2e,#1e1e1e);border-radius:2px 0 0 2px}
+.dev-pwr{position:absolute;right:-3px;top:108px;width:3px;height:52px;background:linear-gradient(180deg,#2e2e2e,#1e1e1e);border-radius:0 2px 2px 0}
+.device-screen{aspect-ratio:3/4;overflow:hidden;border-radius:14px;background:#000}
+.device-screen img{width:100%;height:100%;object-fit:contain;object-position:top center;display:block}
+/* Placeholder when no image */
+.device-screen.no-img{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+.screen-ph-icon{font-size:36px;opacity:.2}
+.screen-ph-lbl{font-family:var(--fm);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.18);text-align:center;line-height:1.7}
+/* Glow beneath device */
+.dev-glow{position:absolute;bottom:-50px;left:50%;transform:translateX(-50%);width:240px;height:80px;border-radius:50%;background:var(--glow,rgba(59,130,246,.25));filter:blur(28px);pointer-events:none;animation:glow 3s ease-in-out infinite}
+
+/* ─── CHAPTER SECTIONS ───────────────────── */
+.chapter{padding:110px 0;position:relative;overflow:hidden}
+.chapter--alt{background:var(--bg2)}
+.ch-bgnum{position:absolute;right:-24px;top:-60px;font-family:var(--fh);font-size:clamp(160px,22vw,260px);font-weight:800;letter-spacing:-.06em;color:rgba(255,255,255,.022);pointer-events:none;user-select:none;line-height:1}
+.ch-hdr{margin-bottom:60px}
+.ch-tag{display:block;margin-bottom:14px}
+.ch-sub{font-size:16px;color:var(--ink2);line-height:1.65;max-width:540px;margin-top:14px}
+
+/* ─── ANNOTATED LAYOUT ───────────────────── */
+/* 3-col: left-anns | device | right-anns */
+.ann-layout{display:grid;grid-template-columns:1fr 360px 1fr;gap:0;align-items:center;min-height:520px}
+.ann-col{display:flex;flex-direction:column;gap:22px}
+.ann-col--l{align-items:flex-end;padding-right:32px}
+.ann-col--r{align-items:flex-start;padding-left:32px}
+/* Individual annotation */
+.ann{display:flex;align-items:center;gap:0}
+.ann--l{flex-direction:row;justify-content:flex-end}
+.ann--r{flex-direction:row}
+.ann-card{background:rgba(255,255,255,.045);border:1px solid var(--bd);border-radius:10px;padding:12px 14px;backdrop-filter:blur(8px)}
+.ann--l .ann-card{text-align:right;max-width:210px}
+.ann--r .ann-card{text-align:left;max-width:210px}
+.ann-card h5{font-family:var(--fh);font-size:12px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.ann-card p{font-size:11px;color:var(--ink3);line-height:1.5}
+.ann-arm{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.ann-line{width:44px;height:1px}
+.ann-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+/* Colour variants */
+.ann-s .ann-line{background:linear-gradient(90deg,rgba(59,130,246,.15),var(--s))}
+.ann-s .ann-dot{background:var(--s);box-shadow:0 0 0 3px rgba(59,130,246,.18),0 0 10px rgba(59,130,246,.35)}
+.ann-a .ann-line{background:linear-gradient(90deg,rgba(16,185,129,.15),var(--a))}
+.ann-a .ann-dot{background:var(--a);box-shadow:0 0 0 3px rgba(16,185,129,.18),0 0 10px rgba(16,185,129,.35)}
+.ann-p .ann-line{background:linear-gradient(90deg,rgba(139,92,246,.15),var(--pu))}
+.ann-p .ann-dot{background:var(--pu);box-shadow:0 0 0 3px rgba(139,92,246,.18),0 0 10px rgba(139,92,246,.35)}
+.ann-o .ann-line{background:linear-gradient(90deg,rgba(245,158,11,.15),var(--or))}
+.ann-o .ann-dot{background:var(--or);box-shadow:0 0 0 3px rgba(245,158,11,.18),0 0 10px rgba(245,158,11,.35)}
+/* left arm: dot first, then line */
+.ann--l .ann-arm{flex-direction:row-reverse}
+.ann--l .ann-s .ann-line{background:linear-gradient(90deg,var(--s),rgba(59,130,246,.15))}
+.ann--l .ann-a .ann-line{background:linear-gradient(90deg,var(--a),rgba(16,185,129,.15))}
+.ann--l .ann-p .ann-line{background:linear-gradient(90deg,var(--pu),rgba(139,92,246,.15))}
+.ann--l .ann-o .ann-line{background:linear-gradient(90deg,var(--or),rgba(245,158,11,.15))}
+
+/* ─── DETAIL GRID ────────────────────────── */
+.detail{margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.detail-card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:20px}
+.detail-card .dc-lbl{font-family:var(--fm);font-size:9px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+.detail-card p{font-size:12px;color:var(--ink2);line-height:1.6}
+.lbl-s{color:var(--s)} .lbl-a{color:var(--a)} .lbl-p{color:var(--pu)} .lbl-o{color:var(--or)}
+
+/* ─── FLOW STEPS ─────────────────────────── */
+.flow{display:flex;flex-direction:column;gap:0;margin:24px 0}
+.flow-step{display:flex;gap:14px;align-items:flex-start}
+.flow-spine{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:28px}
+.flow-node{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:10px;font-weight:600;color:#fff;flex-shrink:0}
+.fn-s{background:var(--s)} .fn-a{background:var(--a)} .fn-p{background:var(--pu)} .fn-o{background:var(--or)}
+.flow-conn{width:1px;flex-grow:1;min-height:14px;background:rgba(255,255,255,.08);margin:2px 0}
+.flow-body{padding-bottom:14px;flex:1}
+.flow-body h5{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.flow-body p{font-size:11px;color:var(--ink3);line-height:1.5}
+
+/* ─── CALLOUT BOX ────────────────────────── */
+.callout{border-radius:12px;padding:20px 22px}
+.callout--s{background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(59,130,246,.04));border:1px solid rgba(59,130,246,.2)}
+.callout--a{background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(16,185,129,.04));border:1px solid rgba(16,185,129,.2)}
+.callout h4{font-family:var(--fh);font-size:13px;font-weight:700;color:#fff;margin-bottom:6px}
+.callout p{font-size:12px;color:var(--ink2);line-height:1.6}
+
+/* ─── TECH PILLS ─────────────────────────── */
+.pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+.pill{font-family:var(--fm);font-size:10px;padding:4px 10px;border-radius:5px}
+.pill-s{background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.2);color:var(--s)}
+.pill-a{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);color:var(--a)}
+.pill-p{background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.2);color:var(--pu)}
+
+/* ─── TECH DEEP DIVE ─────────────────────── */
+.tech{padding:100px 0;background:var(--bg2);border-top:1px solid var(--bd)}
+.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.tech-card{background:var(--bg3);border:1px solid var(--bd);border-radius:16px;padding:28px;position:relative;overflow:hidden}
+.tech-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--tc,var(--s))}
+.tech-card h4{font-family:var(--fh);font-size:14px;font-weight:700;color:#fff;margin-bottom:10px;margin-top:6px}
+.tech-card p{font-size:12px;color:var(--ink3);line-height:1.65}
+.tech-card .tc-icon{font-size:22px;margin-bottom:10px}
+/* Mini flow diagram inside tech card */
+.mini-flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin-top:14px}
+.mf-node{font-family:var(--fm);font-size:9px;padding:4px 8px;background:rgba(255,255,255,.06);border:1px solid var(--bd);border-radius:5px;color:var(--ink3);white-space:nowrap}
+.mf-arrow{color:var(--ink3);font-size:11px;padding:0 4px;flex-shrink:0}
+
+/* ─── IMPACT SECTION ─────────────────────── */
+.impact{padding:100px 0;background:var(--bg)}
+.impact-strip{background:linear-gradient(135deg,rgba(59,130,246,.07),rgba(16,185,129,.05));border:1px solid rgba(59,130,246,.15);border-radius:20px;padding:48px;margin-top:48px}
+.impact-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:32px}
+.ikpi-n{font-family:var(--fh);font-size:44px;font-weight:800;color:#fff;line-height:1;letter-spacing:-.03em}
+.ikpi-n em{font-style:normal;color:var(--a)}
+.ikpi-l{font-size:11px;color:var(--ink3);margin-top:6px;line-height:1.45}
+
+/* ─── CREDIT SECTION ─────────────────────── */
+.credits{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.credit-card{background:var(--bg3);border:1px solid var(--bd);border-radius:14px;padding:24px}
+.credit-card h4{font-family:var(--fh);font-size:13px;font-weight:700;color:#fff;margin-bottom:8px}
+.credit-card p{font-size:12px;color:var(--ink3);line-height:1.6}
+
+/* ─── FOOTER ─────────────────────────────── */
+.footer{background:var(--bg);border-top:1px solid var(--bd);padding:56px 0 36px}
+.footer-grid{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
+.footer-name{font-family:var(--fh);font-size:20px;font-weight:800;color:#fff;margin-bottom:3px}
+.footer-role{font-size:12px;color:var(--ink3)}
+.footer-links{display:flex;gap:20px}
+.footer-link{font-size:12px;color:var(--ink3);transition:color .15s}
+.footer-link:hover{color:var(--a)}
+.footer-btm{margin-top:36px;padding-top:18px;border-top:1px solid var(--bd);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.footer-btm p{font-size:10px;color:rgba(255,255,255,.15)}
+
+/* ─── LABEL DEVICE SCREEN ────────────────── */
+.label-screen{width:100%;height:100%;background:#f5f5f0;padding:16px;display:flex;flex-direction:column;gap:0;font-family:var(--fb)}
+.ls-header{background:#111;color:#fff;padding:8px 12px;margin:-16px -16px 12px;display:flex;justify-content:space-between;align-items:center}
+.ls-header h6{font-size:10px;font-weight:700;letter-spacing:.08em;color:#fff}
+.ls-header p{font-size:8px;color:rgba(255,255,255,.5)}
+.ls-pn{font-size:13px;font-weight:800;color:#111;letter-spacing:-.01em;border-bottom:1px solid #ddd;padding-bottom:8px;margin-bottom:8px}
+.ls-row{display:flex;justify-content:space-between;margin-bottom:4px}
+.ls-row .lsk{font-size:8px;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.ls-row .lsv{font-size:9px;color:#111;font-weight:600}
+.ls-move{background:#111;color:#fff;text-align:center;padding:6px;margin-top:10px;border-radius:4px}
+.ls-move .move-to{font-size:8px;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase}
+.ls-move .move-dest{font-size:16px;font-weight:800;color:#fff;letter-spacing:-.01em}
+.ls-status{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px;background:#e8faf2;padding:5px;border-radius:4px;border:1px solid #10b981}
+.ls-status span{font-size:9px;font-weight:700;color:#10b981;letter-spacing:.08em}
+.ls-routing{margin-top:8px;background:#f9f9f9;border:1px solid #e5e5e5;border-radius:4px;padding:6px}
+.ls-routing .rk{font-size:7px;color:#aaa;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.ls-routing .rv{font-size:8px;color:#555;display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.ls-routing .rv span{font-weight:700;color:#111}
+.ls-routing .rv em{color:#ccc;font-style:normal}
+.ls-print-btn{margin-top:auto;background:#3B82F6;color:#fff;text-align:center;padding:8px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:.06em}
+
+/* ─── RESPONSIVE ─────────────────────────── */
+@media(max-width:1000px){
+  .ann-layout{grid-template-columns:1fr 320px 1fr}
+  .device{width:320px}
+}
+@media(max-width:820px){
+  .ann-layout{grid-template-columns:1fr;grid-template-rows:auto auto auto;gap:32px}
+  .ann-col--l,.ann-col--r{align-items:flex-start;padding:0;flex-direction:row;flex-wrap:wrap;gap:12px}
+  .ann--l{flex-direction:row}
+  .ann--l .ann-arm{flex-direction:row}
+  .ann--l .ann-s .ann-line{background:linear-gradient(90deg,rgba(59,130,246,.15),var(--s))}
+  .ann--l .ann-a .ann-line{background:linear-gradient(90deg,rgba(16,185,129,.15),var(--a))}
+  .ann--l .ann-p .ann-line{background:linear-gradient(90deg,rgba(139,92,246,.15),var(--pu))}
+  .ann--l .ann-o .ann-line{background:linear-gradient(90deg,rgba(245,158,11,.15),var(--or))}
+  .device-wrap{order:-1}
+  .detail{grid-template-columns:1fr 1fr}
+  .ctx-grid,.ba-split{grid-template-columns:1fr}
+  .ba-divider{display:none}
+  .tech-grid{grid-template-columns:1fr}
+  .impact-kpis,.credits{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-btm{flex-direction:column}
+  .ch-nav{display:none}
+  .hero-kpis{gap:28px}
+}
+@media(max-width:560px){
+  :root{--pad:18px}
+  .chapter{padding:80px 0}
+  .device{width:280px}
+  .detail,.impact-kpis,.credits{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <div class="nav-i">
+    <div class="nav-brand">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+      Manufacturing Operations Platform
+      <span>· Ludwick Precision Ltd</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Portfolio</a>
+      <a href="resume.html" class="nav-link">Resume</a>
+      <a href="index.html" class="nav-cta">← Back</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── CHAPTER DOTS ── -->
+<nav class="ch-nav" aria-label="Sections">
+  <div class="ch-dot on" data-sec="hero" title="Overview"></div>
+  <div class="ch-dot" data-sec="context" title="Why Built"></div>
+  <div class="ch-dot" data-sec="ecosystem" title="Architecture"></div>
+  <div class="ch-dot" data-sec="auth" title="Authentication"></div>
+  <div class="ch-dot" data-sec="home" title="Home Dashboard"></div>
+  <div class="ch-dot" data-sec="workcentres" title="Work Centres"></div>
+  <div class="ch-dot" data-sec="jobs" title="Work Orders"></div>
+  <div class="ch-dot" data-sec="clockin" title="Clock In"></div>
+  <div class="ch-dot" data-sec="clockout" title="Clock Out"></div>
+  <div class="ch-dot" data-sec="ticket" title="Move Ticket"></div>
+  <div class="ch-dot" data-sec="printing" title="Label Printing"></div>
+  <div class="ch-dot" data-sec="tech" title="Technical"></div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-orb1" aria-hidden="true"></div>
+  <div class="hero-orb2" aria-hidden="true"></div>
+  <div class="hero-c wrap" style="max-width:var(--mx)">
+    <p class="hero-tag">Digital Transformation · Ludwick Precision Ltd</p>
+    <h1 class="d1" style="max-width:880px">
+      The platform that <span style="color:var(--s)">replaced paper</span><br>on the manufacturing floor
+    </h1>
+    <p class="body-lg" style="max-width:580px;margin-top:22px">
+      A live manufacturing operations system built for Android industrial tablets — integrating directly with MIE Trak ERP to digitise every stage of the operator journey.
+    </p>
+    <div class="hero-kpis">
+      <div><div class="hero-kpi-n">60<em>+</em></div><div class="hero-kpi-l">Operators using this system daily</div></div>
+      <div><div class="hero-kpi-n">0</div><div class="hero-kpi-l">Paper job packs remaining in production</div></div>
+      <div><div class="hero-kpi-n">Live</div><div class="hero-kpi-l">ERP sync on every interaction</div></div>
+      <div><div class="hero-kpi-n">8</div><div class="hero-kpi-l">Core workflow screens</div></div>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <div class="hero-scroll-line"></div>
+    Scroll to explore
+  </div>
+</section>
+
+<!-- ── JOURNEY BAR ── -->
+<div class="journey">
+  <div class="journey-steps">
+    <div class="jnode"><div class="jnode-inner"><div class="jnum on" data-j="0">01</div><div class="jlabel">Auth</div></div><span class="jarrow">›</span></div>
+    <div class="jnode"><div class="jnode-inner"><div class="jnum" data-j="1">02</div><div class="jlabel">Home</div></div><span class="jarrow">›</span></div>
+    <div class="jnode"><div class="jnode-inner"><div class="jnum" data-j="2">03</div><div class="jlabel">Centres</div></div><span class="jarrow">›</span></div>
+    <div class="jnode"><div class="jnode-inner"><div class="jnum" data-j="3">04</div><div class="jlabel">Work Orders</div></div><span class="jarrow">›</span></div>
+    <div class="jnode"><div class="jnode-inner"><div class="jnum" data-j="4">05</div><div class="jlabel">Clock In</div></div><span class="jarrow">›</span></div>
+    <div class="jnode"><div class="jnode-inner"><div class="jnum" data-j="5">06</div><div class="jlabel">Clock Out</div></div><span class="jarrow">›</span></div>
+    <div class="jnode"><div class="jnode-inner"><div class="jnum" data-j="6">07</div><div class="jlabel">Move Ticket</div></div><span class="jarrow">›</span></div>
+    <div class="jnode"><div class="jnode-inner"><div class="jnum" data-j="7">08</div><div class="jlabel">Label Print</div></div></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     CONTEXT — WHY IT WAS BUILT
+══════════════════════════════════════════ -->
+<section class="ctx" id="context">
+  <div class="wrap">
+    <span class="label label--s" style="display:block;margin-bottom:14px">Manufacturing Problem</span>
+    <h2 class="h1" style="max-width:680px;margin-bottom:48px">Built to solve a real production problem. Not a theoretical one.</h2>
+    <div class="ctx-grid">
+      <div class="anim">
+        <div class="ctx-problem">
+          <h3 class="h3" style="color:var(--re);margin-bottom:4px">Before: Paper-Dependent Production</h3>
+          <p class="sm" style="color:var(--ink3);margin-bottom:0">How Ludwick Precision managed jobs before this platform</p>
+          <ul class="ctx-list">
+            <li>Paper job packs printed daily by supervisors and distributed manually</li>
+            <li>Operators wrote start/end times on physical job cards — transcribed to ERP at end of shift, often inaccurately</li>
+            <li>No visibility into who was working on which job, or for how long</li>
+            <li>Move tickets handwritten — frequently lost between work centres</li>
+            <li>Job queue only updated once per shift; operators couldn't see real-time priorities</li>
+            <li>Production drawings stored in folders — operators requested copies from supervisors</li>
+            <li>No digital audit trail of what was produced, when, or by whom</li>
+          </ul>
+        </div>
+      </div>
+      <div class="anim d2c">
+        <div class="ctx-solution">
+          <h3 class="h3" style="color:var(--a);margin-bottom:4px">After: Live Digital Operations</h3>
+          <p class="sm" style="color:var(--ink3);margin-bottom:0">What the Manufacturing Operations Platform replaced this with</p>
+          <ul class="ctx-list">
+            <li>Android tablets at every work centre — operators log in with a kiosk number</li>
+            <li>Clock In / Out writes production records to MIE Trak in real time</li>
+            <li>Full operator attribution on every work order — timestamped to the second</li>
+            <li>Move tickets generated automatically on job completion, with Brother label printer integration</li>
+            <li>Live job queue pulled from ERP on every screen load — always current</li>
+            <li>Production drawings and job documentation accessible directly on screen</li>
+            <li>Complete digital audit trail — visible to management via reporting dashboard</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     BEFORE / AFTER
+══════════════════════════════════════════ -->
+<section class="ba" id="beforeafter">
+  <div class="wrap">
+    <span class="label label--o" style="display:block;margin-bottom:14px">Transformation Impact</span>
+    <h2 class="h1" style="max-width:700px;margin-bottom:48px">The difference this platform made — visible on the floor, felt in the numbers.</h2>
+    <div class="ba-split anim">
+      <div class="ba-side ba-side--b">
+        <div class="ba-head">Before</div>
+        <div class="ba-items">
+          <div class="ba-item"><div class="ba-item-icon">📋</div><div><h5>Paper Job Packs</h5><p>Printed and distributed once per shift. Immediately out of date.</p></div></div>
+          <div class="ba-item"><div class="ba-item-icon">✍️</div><div><h5>Manual Clocking</h5><p>Handwritten on job cards, transcribed hours later. Inaccurate.</p></div></div>
+          <div class="ba-item"><div class="ba-item-icon">🗂️</div><div><h5>Printed Move Tickets</h5><p>Handwritten, frequently lost between work centres.</p></div></div>
+          <div class="ba-item"><div class="ba-item-icon">🙋</div><div><h5>Supervisor-Allocated Jobs</h5><p>Operators had no independent view of their work queue.</p></div></div>
+          <div class="ba-item"><div class="ba-item-icon">📉</div><div><h5>Limited Production Visibility</h5><p>Management had no real-time view of floor activity.</p></div></div>
+          <div class="ba-item"><div class="ba-item-icon">🖨️</div><div><h5>Paper Drawings</h5><p>Stored in folders — requiring supervisor access for every request.</p></div></div>
+        </div>
+      </div>
+      <div class="ba-divider" aria-hidden="true"></div>
+      <div class="ba-side ba-side--a">
+        <div class="ba-head">After</div>
+        <div class="ba-items">
+          <div class="ba-item"><div class="ba-item-icon">📱</div><div><h5>Live Digital Workflow</h5><p>Every job, quantity, and status updated from ERP in real time.</p></div></div>
+          <div class="ba-item"><div class="ba-item-icon">⚡</div><div><h5>ERP-Connected Clocking</h5><p>Production records written to MIE Trak the moment an operator clocks in or out.</p></div></div>
+          <div class="ba-item"><div class="ba-item-icon">🏷️</div><div><h5>Automated Move Tickets</h5><p>Generated on job completion. Printed via Brother label printer. No paper, no errors.</p></div></div>
+          <div class="ba-item"><div class="ba-item-icon">📲</div><div><h5>Tablet-Based Operators</h5><p>Each operator sees their own queue, clocked status, and job documents independently.</p></div></div>
+          <div class="ba-item"><div class="ba-item-icon">📊</div><div><h5>Real-Time Dashboards</h5><p>Management sees live floor activity, labour hours, and job progress without interrupting production.</p></div></div>
+          <div class="ba-item"><div class="ba-item-icon">🤖</div><div><h5>AI-Assisted Manufacturing</h5><p>Platform built with AI-augmented engineering, delivering enterprise-grade capability from a lean team.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ECOSYSTEM ARCHITECTURE
+══════════════════════════════════════════ -->
+<section class="eco" id="ecosystem">
+  <div class="wrap">
+    <span class="label label--p" style="display:block;margin-bottom:14px">System Architecture</span>
+    <h2 class="h1" style="max-width:700px;margin-bottom:14px">Not an app. An ecosystem.</h2>
+    <p class="body-lg" style="max-width:560px">Every component of the platform connects — from the operator's tablet to the ERP, to the printer, to management reporting. Data flows in both directions, in real time.</p>
+    <div class="eco-svg-wrap anim">
+      <svg viewBox="0 0 680 860" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Manufacturing Operations Platform ecosystem diagram">
+        <defs>
+          <filter id="glow-s"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <filter id="glow-a"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <!-- Animated pulse dots on paths -->
+        </defs>
+
+        <!-- ─ Animated connecting lines ─ -->
+        <!-- Operator → MOP -->
+        <path class="eco-path d1" d="M340 80 L340 148" stroke="#3B82F6" stroke-width="1.5"/>
+        <!-- MOP → Flask -->
+        <path class="eco-path d2" d="M340 208 L340 268" stroke="#8B5CF6" stroke-width="1.5"/>
+        <!-- Flask → SQL -->
+        <path class="eco-path d3" d="M340 324 L340 384" stroke="#8B5CF6" stroke-width="1.5"/>
+        <!-- SQL → MIE Trak -->
+        <path class="eco-path d4" d="M340 440 L340 500" stroke="#F59E0B" stroke-width="1.5"/>
+        <!-- MIE Trak → outputs (fan out) -->
+        <path class="eco-path d5" d="M340 560 L340 580 Q340 600 300 600 L120 600 Q80 600 80 620 L80 660" stroke="#10B981" stroke-width="1.5"/>
+        <path class="eco-path d6" d="M340 560 L340 580 Q340 600 320 600 L240 600 Q220 600 220 620 L220 660" stroke="#10B981" stroke-width="1.5"/>
+        <path class="eco-path d7" d="M340 560 L340 580 Q340 600 360 600 L440 600 Q460 600 460 620 L460 660" stroke="#10B981" stroke-width="1.5"/>
+        <path class="eco-path d8" d="M340 560 L340 580 Q340 600 380 600 L560 600 Q600 600 600 620 L600 660" stroke="#10B981" stroke-width="1.5"/>
+
+        <!-- ─ NODES ─ -->
+
+        <!-- OPERATOR -->
+        <rect x="220" y="20" width="240" height="60" rx="12" fill="rgba(59,130,246,0.1)" stroke="#3B82F6" stroke-width="1.5" filter="url(#glow-s)"/>
+        <text x="340" y="47" font-family="Manrope,sans-serif" font-size="13" font-weight="700" fill="#F9FAFB" text-anchor="middle">OPERATOR</text>
+        <text x="340" y="65" font-family="'JetBrains Mono',monospace" font-size="9" fill="rgba(249,250,251,.4)" text-anchor="middle" letter-spacing="0.1em">ANDROID INDUSTRIAL TABLET</text>
+
+        <!-- MOP (main platform) -->
+        <rect x="140" y="148" width="400" height="60" rx="14" fill="rgba(59,130,246,0.18)" stroke="#3B82F6" stroke-width="2" filter="url(#glow-s)"/>
+        <text x="340" y="175" font-family="Manrope,sans-serif" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">MANUFACTURING OPERATIONS PLATFORM</text>
+        <text x="340" y="194" font-family="'JetBrains Mono',monospace" font-size="9" fill="rgba(249,250,251,.45)" text-anchor="middle" letter-spacing="0.08em">Auth · Work Orders · Clocking · Tickets · Documents</text>
+
+        <!-- Flask API -->
+        <rect x="180" y="268" width="320" height="56" rx="12" fill="rgba(139,92,246,0.1)" stroke="#8B5CF6" stroke-width="1.5"/>
+        <text x="340" y="293" font-family="Manrope,sans-serif" font-size="12" font-weight="700" fill="#F9FAFB" text-anchor="middle">FLASK / PYTHON BACKEND</text>
+        <text x="340" y="311" font-family="'JetBrains Mono',monospace" font-size="9" fill="rgba(249,250,251,.35)" text-anchor="middle" letter-spacing="0.08em">REST API · Business Logic · Session Management</text>
+
+        <!-- SQL Server -->
+        <rect x="190" y="384" width="300" height="56" rx="12" fill="rgba(139,92,246,0.08)" stroke="#8B5CF6" stroke-width="1.5"/>
+        <text x="340" y="409" font-family="Manrope,sans-serif" font-size="12" font-weight="700" fill="#F9FAFB" text-anchor="middle">SQL SERVER DATA LAYER</text>
+        <text x="340" y="427" font-family="'JetBrains Mono',monospace" font-size="9" fill="rgba(249,250,251,.35)" text-anchor="middle" letter-spacing="0.08em">Production data · Live query · Reporting views</text>
+
+        <!-- MIE Trak ERP -->
+        <rect x="170" y="500" width="340" height="60" rx="14" fill="rgba(245,158,11,0.12)" stroke="#F59E0B" stroke-width="2" filter="url(#glow-a)"/>
+        <text x="340" y="527" font-family="Manrope,sans-serif" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">MIE TRAK ERP</text>
+        <text x="340" y="546" font-family="'JetBrains Mono',monospace" font-size="9" fill="rgba(249,250,251,.4)" text-anchor="middle" letter-spacing="0.08em">Work Orders · Labour · BOM · Routing · Customers</text>
+
+        <!-- OUTPUT NODES -->
+        <!-- Production Dashboard -->
+        <rect x="22" y="660" width="116" height="68" rx="10" fill="rgba(16,185,129,.1)" stroke="#10B981" stroke-width="1.2"/>
+        <text x="80" y="689" font-family="Manrope,sans-serif" font-size="9" font-weight="700" fill="#10B981" text-anchor="middle">PRODUCTION</text>
+        <text x="80" y="703" font-family="Manrope,sans-serif" font-size="9" font-weight="700" fill="#10B981" text-anchor="middle">DASHBOARD</text>
+        <text x="80" y="719" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="rgba(249,250,251,.25)" text-anchor="middle">Live floor view</text>
+
+        <!-- AI Validation -->
+        <rect x="163" y="660" width="116" height="68" rx="10" fill="rgba(16,185,129,.08)" stroke="#10B981" stroke-width="1.2"/>
+        <text x="221" y="689" font-family="Manrope,sans-serif" font-size="9" font-weight="700" fill="#10B981" text-anchor="middle">AI VALIDATION</text>
+        <text x="221" y="703" font-family="Manrope,sans-serif" font-size="9" font-weight="700" fill="#10B981" text-anchor="middle">PLATFORM</text>
+        <text x="221" y="719" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="rgba(249,250,251,.25)" text-anchor="middle">Engineering assist</text>
+
+        <!-- Brother Printer -->
+        <rect x="403" y="660" width="116" height="68" rx="10" fill="rgba(16,185,129,.08)" stroke="#10B981" stroke-width="1.2"/>
+        <text x="461" y="689" font-family="Manrope,sans-serif" font-size="9" font-weight="700" fill="#10B981" text-anchor="middle">BROTHER LABEL</text>
+        <text x="461" y="703" font-family="Manrope,sans-serif" font-size="9" font-weight="700" fill="#10B981" text-anchor="middle">PRINTER</text>
+        <text x="461" y="719" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="rgba(249,250,251,.25)" text-anchor="middle">Auto-generated</text>
+
+        <!-- Management Reporting -->
+        <rect x="543" y="660" width="116" height="68" rx="10" fill="rgba(16,185,129,.08)" stroke="#10B981" stroke-width="1.2"/>
+        <text x="601" y="689" font-family="Manrope,sans-serif" font-size="9" font-weight="700" fill="#10B981" text-anchor="middle">MANAGEMENT</text>
+        <text x="601" y="703" font-family="Manrope,sans-serif" font-size="9" font-weight="700" fill="#10B981" text-anchor="middle">REPORTING</text>
+        <text x="601" y="719" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="rgba(249,250,251,.25)" text-anchor="middle">KPIs &amp; actuals</text>
+
+        <!-- Labels beside arrows -->
+        <text x="352" y="120" font-family="'JetBrains Mono',monospace" font-size="8" fill="rgba(59,130,246,.5)" letter-spacing="0.1em">kiosk auth</text>
+        <text x="352" y="244" font-family="'JetBrains Mono',monospace" font-size="8" fill="rgba(139,92,246,.5)" letter-spacing="0.1em">REST API</text>
+        <text x="352" y="360" font-family="'JetBrains Mono',monospace" font-size="8" fill="rgba(139,92,246,.5)" letter-spacing="0.1em">live query</text>
+        <text x="352" y="476" font-family="'JetBrains Mono',monospace" font-size="8" fill="rgba(245,158,11,.5)" letter-spacing="0.1em">bidirectional sync</text>
+
+        <!-- Legend -->
+        <rect x="22" y="790" width="636" height="52" rx="10" fill="rgba(255,255,255,.025)" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+        <text x="40" y="818" font-family="'JetBrains Mono',monospace" font-size="8" fill="rgba(249,250,251,.25)" letter-spacing="0.1em">STACK: Python · Flask · SQL Server · MIE Trak REST API · Android WebView · Brother QL API</text>
+        <text x="40" y="834" font-family="'JetBrains Mono',monospace" font-size="8" fill="rgba(249,250,251,.2)" letter-spacing="0.1em">All data flows are live. No batch jobs. No manual sync.</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     01 · OPERATOR AUTHENTICATION
+══════════════════════════════════════════ -->
+<section class="chapter chapter--alt" id="auth">
+  <div class="ch-bgnum" aria-hidden="true">01</div>
+  <div class="wrap">
+    <div class="ch-hdr anim">
+      <span class="label label--s ch-tag">01 · Operator Authentication</span>
+      <h2 class="h1">Secure login. Built for a gloved hand on a factory floor.</h2>
+      <p class="ch-sub">Every shift begins here. A kiosk-number PIN system designed specifically for shared Android tablets in an industrial environment — no usernames, no passwords, no delays.</p>
+    </div>
+    <div class="ann-layout">
+      <!-- Left annotations -->
+      <div class="ann-col ann-col--l anim">
+        <div class="ann ann--l ann-a">
+          <div class="ann-card"><h5>Company identity</h5><p>Ludwick Precision branding on every login screen reinforces platform ownership and operator trust.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+        <div class="ann ann--l ann-s">
+          <div class="ann-card"><h5>"Production Dashboard" label</h5><p>Context label anchors operators — they know which system and environment they're entering.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+        <div class="ann ann--l ann-p">
+          <div class="ann-card"><h5>Clock at login</h5><p>System time displayed at login reinforces that every action is timestamped — operators know this is a live production record.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+      </div>
+      <!-- Device -->
+      <div class="device-wrap">
+        <div class="device-float">
+          <div class="device">
+            <div class="dev-vol"></div><div class="dev-vol2"></div><div class="dev-pwr"></div>
+            <div class="device-screen" id="ds-auth">
+              <img src="screenshots/sc-01-auth.jpg" alt="Operator Login — Production Dashboard kiosk authentication screen"
+                   onerror="this.parentElement.classList.add('no-img');this.style.display='none'">
+              <div class="screen-ph-icon" style="display:none">🔐</div>
+              <div class="screen-ph-lbl" style="display:none">sc-01-auth.jpg<br>Operator Login</div>
+            </div>
+          </div>
+        </div>
+        <div class="dev-glow" style="--glow:rgba(59,130,246,.28)"></div>
+      </div>
+      <!-- Right annotations -->
+      <div class="ann-col ann-col--r anim d2c">
+        <div class="ann ann--r ann-o">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>Large numeric keypad</h5><p>Designed for touchscreen use with gloves. Large tap targets. No text keyboard dependency.</p></div>
+        </div>
+        <div class="ann ann--r ann-s">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>Kiosk number entry</h5><p>Each operator has a unique kiosk number mapped to their MIE Trak employee record — login in under 5 seconds.</p></div>
+        </div>
+        <div class="ann ann--r ann-a">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>ERP validation on entry</h5><p>Kiosk number validated against MIE Trak operator records via REST API. Invalid numbers are rejected instantly.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="detail anim d3c">
+      <div class="detail-card"><div class="dc-lbl lbl-s">Business Value</div><p>Digital operator identity on every production action — replacing anonymous shared paper sign-in sheets.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-a">ERP Integration</div><p>Operator record pulled from MIE Trak on login — name, access level, and permitted work centres loaded into session.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-p">Operator Experience</div><p>Under 5 seconds from approaching the tablet to being inside the platform. No training required for authentication.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-o">Manufacturing Problem</div><p>Previously: anonymous paper sign-in sheets. No audit trail. No operator-level production tracking. No accountability.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     02 · HOME DASHBOARD
+══════════════════════════════════════════ -->
+<section class="chapter" id="home">
+  <div class="ch-bgnum" aria-hidden="true">02</div>
+  <div class="wrap">
+    <div class="ch-hdr anim">
+      <span class="label label--a ch-tag">02 · Home Dashboard</span>
+      <h2 class="h1">Everything an operator needs. Nothing they don't.</h2>
+      <p class="ch-sub">The home screen surfaces the most relevant information immediately after login — active shift status, current job assignment, quick search, and recently used work centres — all in a single scrollable view.</p>
+    </div>
+    <div class="ann-layout">
+      <div class="ann-col ann-col--l anim">
+        <div class="ann ann--l ann-a">
+          <div class="ann-card"><h5>Personalised greeting</h5><p>"Good Afternoon, Midhun." — operator name pulled from ERP session. Confirms correct login immediately.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+        <div class="ann ann--l ann-s">
+          <div class="ann-card"><h5>Live shift timer</h5><p>Shift start time and elapsed duration shown in real time. "07:12 · 7h 55m ago" — always visible.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+        <div class="ann ann--l ann-p">
+          <div class="ann-card"><h5>Universal WO / SO / Part search</h5><p>Search any work order, sales order, or part number across the entire MIE Trak database without leaving the home screen.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+      </div>
+      <div class="device-wrap">
+        <div class="device-float" style="animation-delay:.4s">
+          <div class="device">
+            <div class="dev-vol"></div><div class="dev-vol2"></div><div class="dev-pwr"></div>
+            <div class="device-screen" id="ds-home">
+              <img src="screenshots/sc-02-home.jpg" alt="Home Dashboard — Good Afternoon Midhun, shift in progress, recent work centres"
+                   onerror="this.parentElement.classList.add('no-img');this.style.display='none'">
+              <div class="screen-ph-icon" style="display:none">🏠</div>
+              <div class="screen-ph-lbl" style="display:none">sc-02-home.jpg<br>Home Dashboard</div>
+            </div>
+          </div>
+        </div>
+        <div class="dev-glow" style="--glow:rgba(16,185,129,.22)"></div>
+      </div>
+      <div class="ann-col ann-col--r anim d2c">
+        <div class="ann ann--r ann-o">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>Recent work centres</h5><p>LASER (116 jobs), FOLDING/ROLLING (109 jobs) — last-used centres surface automatically with live job counts.</p></div>
+        </div>
+        <div class="ann ann--r ann-a">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>Clock Out of Shift</h5><p>End-of-shift action accessible directly from home — no navigation required when clocking off for the day.</p></div>
+        </div>
+        <div class="ann ann--r ann-s">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>Non-Productive / Indirect time</h5><p>Log machine downtime, meetings, or indirect work directly from home — no job assignment needed.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="detail anim d3c">
+      <div class="detail-card"><div class="dc-lbl lbl-a">Business Value</div><p>Operators spend time making parts, not navigating software. Time-to-task from login is under 10 seconds.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-s">ERP Integration</div><p>Shift status, live job counts, and operator name are pulled from MIE Trak on every page load — always current.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-p">Operator Experience</div><p>The home screen serves as a personal operations hub — operators return to it between jobs rather than asking supervisors for direction.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-o">Manufacturing Problem</div><p>Previously operators had no digital base. Every query about job status or queue required finding and interrupting a supervisor.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     03 · WORK CENTRE SELECTION
+══════════════════════════════════════════ -->
+<section class="chapter chapter--alt" id="workcentres">
+  <div class="ch-bgnum" aria-hidden="true">03</div>
+  <div class="wrap">
+    <div class="ch-hdr anim">
+      <span class="label label--p ch-tag">03 · Work Centre Selection</span>
+      <h2 class="h1">The full production map. Structured by process stage.</h2>
+      <p class="ch-sub">Every work centre in the facility, grouped by manufacturing stage — from Profiling through to Finishing &amp; Despatch. Live job counts per centre refresh directly from ERP.</p>
+    </div>
+    <div class="ann-layout">
+      <div class="ann-col ann-col--l anim">
+        <div class="ann ann--l ann-p">
+          <div class="ann-card"><h5>Stage grouping (1–5)</h5><p>Work centres grouped by production stage — matching the physical flow: Profiling → Fabrication → Welding → Finishing.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+        <div class="ann ann--l ann-s">
+          <div class="ann-card"><h5>WELDING: 329 jobs</h5><p>The busiest department — four sub-centres: SPOT (8), MIG (211), TIG (11), LASER WELDING (99). All tracked independently.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+        <div class="ann ann--l ann-a">
+          <div class="ann-card"><h5>FINISHING: 529 jobs</h5><p>PACKING (385) and PACKING-HBC (124) — the highest volume stage. Visible at a glance before selecting a centre.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+      </div>
+      <div class="device-wrap">
+        <div class="device-float" style="animation-delay:.8s">
+          <div class="device">
+            <div class="dev-vol"></div><div class="dev-vol2"></div><div class="dev-pwr"></div>
+            <div class="device-screen" id="ds-wc">
+              <img src="screenshots/sc-03-workcentres.jpg" alt="Work Centre Selection — 5 grouped manufacturing stages with live job counts"
+                   onerror="this.parentElement.classList.add('no-img');this.style.display='none'">
+              <div class="screen-ph-icon" style="display:none">🏭</div>
+              <div class="screen-ph-lbl" style="display:none">sc-03-workcentres.jpg<br>Work Centre Selection</div>
+            </div>
+          </div>
+        </div>
+        <div class="dev-glow" style="--glow:rgba(139,92,246,.22)"></div>
+      </div>
+      <div class="ann-col ann-col--r anim d2c">
+        <div class="ann ann--r ann-o">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>PROFILING: 166 jobs</h5><p>LASER (116), LASER-TUBE (18), CUTTING (32) — first-stage operations visible immediately with job counts.</p></div>
+        </div>
+        <div class="ann ann--r ann-s">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>Live counts from ERP</h5><p>Every number is a live SQL query against the MIE Trak data layer — not a cached value. Refreshes on every load.</p></div>
+        </div>
+        <div class="ann ann--r ann-a">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>1,220+ jobs tracked</h5><p>Across all 14 work centres, the platform gives operators a live view of the entire production floor without leaving their station.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="detail anim d3c">
+      <div class="detail-card"><div class="dc-lbl lbl-p">Business Value</div><p>Operators see where the work is. Supervisors see where bottlenecks are forming. No manual counts, no stale reports.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-s">ERP Integration</div><p>Each work centre job count is a live SQL query against MIE Trak data — 14 counts refreshed on a single page load.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-a">Operator Experience</div><p>Operators who work across multiple centres can navigate directly to any stage without asking supervisors where to go.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-o">Manufacturing Problem</div><p>Previously, job allocation to work centres was managed manually by supervisors using printed sheets updated once per shift.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     04 · WORK ORDER LIST
+══════════════════════════════════════════ -->
+<section class="chapter" id="jobs">
+  <div class="ch-bgnum" aria-hidden="true">04</div>
+  <div class="wrap">
+    <div class="ch-hdr anim">
+      <span class="label label--o ch-tag">04 · Work Order List</span>
+      <h2 class="h1">215 live jobs. Every detail. Zero paper.</h2>
+      <p class="ch-sub">The complete active job queue for FOLDING/ROLLING — 215 work orders, each showing part number, description, customer, remaining quantity, drawing availability, and due date urgency in a single scannable card.</p>
+    </div>
+    <div class="ann-layout">
+      <div class="ann-col ann-col--l anim">
+        <div class="ann ann--l ann-a">
+          <div class="ann-card"><h5>Ready to Go badge</h5><p>Green status confirms: materials available, drawings attached, ERP routing active. Operator can begin immediately.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+        <div class="ann ann--l ann-o">
+          <div class="ann-card"><h5>WO 18734 · Teknion UK Ltd</h5><p>Part A15SU-0001\M1170-7021, SPHA71539 Lower Cable Tray 1170mm RAL 7021. Op 2. 10 QTY LEFT.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+        <div class="ann ann--l ann-s">
+          <div class="ann-card"><h5>206 With Files · 9 Missing</h5><p>Drawing file availability tracked per WO — operators know if documentation is present before starting the job.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+      </div>
+      <div class="device-wrap">
+        <div class="device-float" style="animation-delay:.2s">
+          <div class="device">
+            <div class="dev-vol"></div><div class="dev-vol2"></div><div class="dev-pwr"></div>
+            <div class="device-screen" id="ds-jobs">
+              <img src="screenshots/sc-04-jobs.jpg" alt="Work Order List — FOLDING/ROLLING 215 active jobs, WO 18734 Ready to Go"
+                   onerror="this.parentElement.classList.add('no-img');this.style.display='none'">
+              <div class="screen-ph-icon" style="display:none">📋</div>
+              <div class="screen-ph-lbl" style="display:none">sc-04-jobs.jpg<br>Work Order List</div>
+            </div>
+          </div>
+        </div>
+        <div class="dev-glow" style="--glow:rgba(245,158,11,.18)"></div>
+      </div>
+      <div class="ann-col ann-col--r anim d2c">
+        <div class="ann ann--r ann-p">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>Due date urgency colouring</h5><p>Target dates highlighted in red for overdue or at-risk jobs — visual priority without manual intervention or supervisor instruction.</p></div>
+        </div>
+        <div class="ann ann--r ann-s">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>Qty Left — live from ERP</h5><p>Remaining quantity accounts for work completed on previous shifts by other operators. Always accurate.</p></div>
+        </div>
+        <div class="ann ann--r ann-a">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>WO Nest reference</h5><p>Nest number visible on each card — operators can cross-reference with physical material sheets from the laser department.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="detail anim d3c">
+      <div class="detail-card"><div class="dc-lbl lbl-o">Business Value</div><p>Operators assess a full day's workload in under 30 seconds. Priority jobs are immediately visible without supervisor interaction.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-s">ERP Integration</div><p>Part number, WO nest, customer, target dates, and remaining quantity all come directly from MIE Trak via live REST API call.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-p">File Visibility</div><p>"206 With Files · 9 Missing" — the platform tracks drawing availability per WO and alerts operators before they begin a job without documentation.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-a">Manufacturing Problem</div><p>Previously, operators had no digital view of their job queue. Work was allocated by supervisors using printed pick lists updated once per shift at best.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     05 · CLOCK IN
+══════════════════════════════════════════ -->
+<section class="chapter chapter--alt" id="clockin">
+  <div class="ch-bgnum" aria-hidden="true">05</div>
+  <div class="wrap">
+    <div class="ch-hdr anim">
+      <span class="label label--s ch-tag">05 · Clock In</span>
+      <h2 class="h1">One confirmation. A complete production record begins.</h2>
+      <p class="ch-sub">The Clock In modal presents the full job context before a single action creates a timestamped production record in MIE Trak — eliminating misattributed time and incorrect records.</p>
+    </div>
+    <div class="ann-layout">
+      <div class="ann-col ann-col--l anim">
+        <div class="ann ann--l ann-s">
+          <div class="ann-card"><h5>WO number prominent</h5><p>"Clock In — WO 18734" — the work order number is the primary identifier. Operators verify this before confirming.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+        <div class="ann ann--l ann-a">
+          <div class="ann-card"><h5>Full part description shown</h5><p>SPHA71539 Lower Cable Tray 1170mm - RAL 7021. No ambiguity about which part is being made.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+        <div class="ann ann--l ann-p">
+          <div class="ann-card"><h5>Operator identity confirmed</h5><p>"Operator: Midhun Rajan" — pulled from session. Prevents incorrect attribution if a colleague uses the same tablet.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+      </div>
+      <div class="device-wrap">
+        <div class="device-float" style="animation-delay:.6s">
+          <div class="device">
+            <div class="dev-vol"></div><div class="dev-vol2"></div><div class="dev-pwr"></div>
+            <div class="device-screen" id="ds-ci">
+              <img src="screenshots/sc-05-clockin.jpg" alt="Clock In modal — WO 18734, A15SU-0001, Operator Midhun Rajan"
+                   onerror="this.parentElement.classList.add('no-img');this.style.display='none'">
+              <div class="screen-ph-icon" style="display:none">⏱️</div>
+              <div class="screen-ph-lbl" style="display:none">sc-05-clockin.jpg<br>Clock In Modal</div>
+            </div>
+          </div>
+        </div>
+        <div class="dev-glow" style="--glow:rgba(59,130,246,.25)"></div>
+      </div>
+      <div class="ann-col ann-col--r anim d2c">
+        <div class="ann ann--r ann-o">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>Cancel / Yes, Clock In</h5><p>Two-button confirmation prevents accidental clock-ins. Cancel returns to the job list without writing any record.</p></div>
+        </div>
+        <div class="ann ann--r ann-s">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>ERP write on confirm</h5><p>Tap "Yes, Clock In" → timestamp written to MIE Trak via REST API. Labour record begins. Dashboard reflects immediately.</p></div>
+        </div>
+        <div class="ann ann--r ann-a">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>Part number: A15SU-0001\M1170-7021</h5><p>Full assembly reference visible — operators can cross-check against their physical material before confirming start.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="detail anim d3c">
+      <div class="detail-card"><div class="dc-lbl lbl-s">Business Value</div><p>Production records accurate to the second. Full operator attribution on every job. Written to ERP automatically with no manual transcription.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-a">ERP Integration</div><p>POST to MIE Trak Labour API on confirmation. Operator ID, WO number, operation, and timestamp written in a single call.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-p">Operator Experience</div><p>The modal is a safety step — it shows the operator exactly what they're confirming. Reduces errors in high-pressure environments.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-o">Manufacturing Problem</div><p>Previously: operators physically signed paper job cards. Time recorded manually at shift end — often inaccurately or not at all.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     06 · CLOCK OUT
+══════════════════════════════════════════ -->
+<section class="chapter" id="clockout">
+  <div class="ch-bgnum" aria-hidden="true">06</div>
+  <div class="wrap">
+    <div class="ch-hdr anim">
+      <span class="label label--a ch-tag">06 · Clock Out</span>
+      <h2 class="h1">Three outcomes. Every production scenario handled correctly.</h2>
+      <p class="ch-sub">Clock Out captures quantity completed and outcome in one interaction — feeding production actuals back to MIE Trak in real time. Cancel, Incomplete, or Complete: the system handles each correctly.</p>
+    </div>
+    <div class="ann-layout">
+      <div class="ann-col ann-col--l anim">
+        <div class="ann ann--l ann-a">
+          <div class="ann-card"><h5>Quantity Completed this session</h5><p>Operator enters the number completed. Platform validates against WO required quantity and previous completions.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+        <div class="ann ann--l ann-s">
+          <div class="ann-card"><h5>Required: 10</h5><p>ERP required quantity shown inline — operator can immediately see whether they've hit or exceeded the target before confirming.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+        <div class="ann ann--l ann-p">
+          <div class="ann-card"><h5>Clocking out of WO 18734</h5><p>Job reference and part description repeated in the modal — same verification step as Clock In ensures correct attribution.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+      </div>
+      <div class="device-wrap">
+        <div class="device-float" style="animation-delay:.9s">
+          <div class="device">
+            <div class="dev-vol"></div><div class="dev-vol2"></div><div class="dev-pwr"></div>
+            <div class="device-screen" id="ds-co">
+              <img src="screenshots/sc-06-clockout.jpg" alt="Clock Out modal — quantity 10, Required 10, Incomplete and Complete buttons"
+                   onerror="this.parentElement.classList.add('no-img');this.style.display='none'">
+              <div class="screen-ph-icon" style="display:none">✅</div>
+              <div class="screen-ph-lbl" style="display:none">sc-06-clockout.jpg<br>Clock Out Modal</div>
+            </div>
+          </div>
+        </div>
+        <div class="dev-glow" style="--glow:rgba(16,185,129,.25)"></div>
+      </div>
+      <div class="ann-col ann-col--r anim d2c">
+        <div class="ann ann--r ann-o">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>Cancel — no record written</h5><p>Operator didn't proceed. No production record created. Job remains in queue unchanged. Clock-in time discarded.</p></div>
+        </div>
+        <div class="ann ann--r ann-p">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>Incomplete — partial progress</h5><p>Records partial qty. ERP updated with progress. Job stays active. Remaining quantity visible on next operator's session.</p></div>
+        </div>
+        <div class="ann ann--r ann-a">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>Complete → Move Ticket triggered</h5><p>Sets MIE Trak operation status to Complete. Triggers automatic Move Ticket generation. No supervisor action needed.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="detail anim d3c">
+      <div class="detail-card"><div class="dc-lbl lbl-a">Business Value</div><p>Production actuals — labour hours, quantity, operator — written to MIE Trak on every clock out. Management dashboards update in real time.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-s">ERP Integration</div><p>POST to MIE Trak Labour API with completed quantity and outcome. WO operation status updated. Routing progression triggered on Complete.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-p">Three Outcomes</div><p>Cancel, Incomplete, and Complete each trigger different ERP writes — ensuring the system always reflects the true state of production.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-o">Manufacturing Problem</div><p>Previously: end-of-shift manual batch entry. Quantity completed often estimated. Labour hours rounded. Inaccurate production data across the board.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     07 · MOVE TICKET / ROUTING
+══════════════════════════════════════════ -->
+<section class="chapter chapter--alt" id="ticket">
+  <div class="ch-bgnum" aria-hidden="true">07</div>
+  <div class="wrap">
+    <div class="ch-hdr anim">
+      <span class="label label--o ch-tag">07 · Move Ticket &amp; Routing</span>
+      <h2 class="h1">Job complete. The routing ticket generates itself.</h2>
+      <p class="ch-sub">When a work order operation is marked Complete, the platform generates a Move Ticket — a fully populated routing document showing where the job has been, where it goes next, and its full production status.</p>
+    </div>
+    <div class="ann-layout">
+      <div class="ann-col ann-col--l anim">
+        <div class="ann ann--l ann-s">
+          <div class="ann-card"><h5>Part number — large format</h5><p>A15SU-0001\M1170-7021 printed prominently — readable across the shop floor, scannable on wall-mounted displays.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+        <div class="ann ann--l ann-o">
+          <div class="ann-card"><h5>MOVE TO: SUBCON — dominant</h5><p>Destination work centre displayed in the largest text on the ticket — unambiguous routing instruction for any handler.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+        <div class="ann ann--l ann-a">
+          <div class="ann-card"><h5>STATUS: COMPLETE</h5><p>Operation status printed on every ticket — confirming the job is ready to be moved and the operation closed in ERP.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+      </div>
+      <div class="device-wrap">
+        <div class="device-float" style="animation-delay:.3s">
+          <div class="device">
+            <div class="dev-vol"></div><div class="dev-vol2"></div><div class="dev-pwr"></div>
+            <div class="device-screen" id="ds-ticket">
+              <img src="screenshots/sc-07-ticket.jpg" alt="Move Ticket Preview — WO 18734, MOVE TO SUBCON, STATUS COMPLETE"
+                   onerror="this.parentElement.classList.add('no-img');this.style.display='none'">
+              <div class="screen-ph-icon" style="display:none">🗂️</div>
+              <div class="screen-ph-lbl" style="display:none">sc-07-ticket.jpg<br>Move Ticket Preview</div>
+            </div>
+          </div>
+        </div>
+        <div class="dev-glow" style="--glow:rgba(245,158,11,.2)"></div>
+      </div>
+      <div class="ann-col ann-col--r anim d2c">
+        <div class="ann ann--r ann-p">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>Full routing sequence</h5><p>LASER → FOLDING/ROLLING → SUBCON → PACKING — complete route with current step bolded. Any handler knows exactly where this job is.</p></div>
+        </div>
+        <div class="ann ann--r ann-s">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>Customer: Teknion UK Ltd</h5><p>WO 18734 · SO 27125 · WO Nest #310. All customer and order references from MIE Trak on every ticket.</p></div>
+        </div>
+        <div class="ann ann--r ann-a">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>Qty Required / Completed</h5><p>QTY Required: 10, Completed: 10 — physical evidence that the operation is finished before the job is moved on.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="detail anim d3c">
+      <div class="detail-card"><div class="dc-lbl lbl-o">Business Value</div><p>Move Tickets eliminate lost jobs between work centres. Every handover documented with a ticket that matches ERP records exactly.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-s">ERP Data Source</div><p>All fields — customer, dates, nest number, routing sequence, quantities — pulled live from MIE Trak at ticket generation time.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-p">Routing Intelligence</div><p>Current step bolded in routing sequence. Any handler receiving the job immediately understands the manufacturing journey to date.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-a">Reprint Capability</div><p>Tickets reprinted at any time from the Reprint tab — preventing delays when physical tickets are lost or damaged on the floor.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     08 · BROTHER LABEL PRINTING
+══════════════════════════════════════════ -->
+<section class="chapter" id="printing">
+  <div class="ch-bgnum" aria-hidden="true">08</div>
+  <div class="wrap">
+    <div class="ch-hdr anim">
+      <span class="label label--a ch-tag">08 · Brother Label Printing</span>
+      <h2 class="h1">One tap. A physical label prints at the work centre.</h2>
+      <p class="ch-sub">When a Move Ticket is generated, the platform sends the job data to the Brother label printer via API — producing a physical label without the operator leaving the tablet. Part number, destination, WO, and routing all in one print.</p>
+    </div>
+    <div class="ann-layout">
+      <div class="ann-col ann-col--l anim">
+        <div class="ann ann--l ann-a">
+          <div class="ann-card"><h5>Print Label button</h5><p>Single tap from the Move Ticket preview screen. No print dialog. No driver setup. The label arrives at the nearest Brother printer.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+        <div class="ann ann--l ann-s">
+          <div class="ann-card"><h5>Auto-populated from ERP</h5><p>Part number, WO, SO, customer, destination centre, and routing sequence all populated from MIE Trak — zero manual data entry on the label.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+        <div class="ann ann--l ann-p">
+          <div class="ann-card"><h5>Ludwick Precision header</h5><p>Company branding on every label. Labels are used for internal routing, external despatch, and customer-facing packing documentation.</p></div>
+          <div class="ann-arm"><div class="ann-line"></div><div class="ann-dot"></div></div>
+        </div>
+      </div>
+      <!-- Device with CSS label preview screen -->
+      <div class="device-wrap">
+        <div class="device-float" style="animation-delay:.5s">
+          <div class="device">
+            <div class="dev-vol"></div><div class="dev-vol2"></div><div class="dev-pwr"></div>
+            <div class="device-screen" id="ds-print">
+              <!-- Try real screenshot first, fallback to CSS mockup -->
+              <img src="screenshots/sc-07-ticket.jpg" alt="Move Ticket with Print Label button"
+                   onerror="this.style.display='none';document.getElementById('label-css').style.display='flex'">
+              <div class="label-screen" id="label-css" style="display:none;flex-direction:column;font-family:var(--fb)">
+                <div class="ls-header">
+                  <h6>LUDWICK PRECISION LTD</h6>
+                  <p>29/06/2026 15:09</p>
+                </div>
+                <div style="font-size:8px;color:#888;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;font-weight:600">Work Order Move / Routing Ticket</div>
+                <div class="ls-pn">A15SU-0001\M1170-7021</div>
+                <div class="ls-row"><span class="lsk">WO</span><span class="lsv">18734</span></div>
+                <div class="ls-row"><span class="lsk">SO</span><span class="lsv">27125</span></div>
+                <div class="ls-row"><span class="lsk">WO Nest</span><span class="lsv">#310</span></div>
+                <div class="ls-row"><span class="lsk">Customer</span><span class="lsv">Teknion UK Ltd</span></div>
+                <div class="ls-row"><span class="lsk">From</span><span class="lsv">FOLDING/ROLLING</span></div>
+                <div class="ls-move">
+                  <div class="move-to">MOVE TO</div>
+                  <div class="move-dest">SUBCON</div>
+                </div>
+                <div class="ls-status"><span>✓ STATUS: COMPLETE</span></div>
+                <div class="ls-routing">
+                  <div class="rk">Routing</div>
+                  <div class="rv">LASER <em>›</em> <span>FOLDING/ROLLING</span> <em>›</em> SUBCON <em>›</em> PACKING</div>
+                </div>
+                <div class="ls-print-btn">⊞ PRINT LABEL</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dev-glow" style="--glow:rgba(16,185,129,.22)"></div>
+      </div>
+      <div class="ann-col ann-col--r anim d2c">
+        <div class="ann ann--r ann-o">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>MOVE TO: SUBCON — large</h5><p>Destination centre printed in the largest font on the label — readable from a distance, unambiguous for warehouse staff.</p></div>
+        </div>
+        <div class="ann ann--r ann-s">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>Routing sequence at bottom</h5><p>LASER → FOLDING/ROLLING → SUBCON → PACKING. Any team member handling the job sees the complete production route.</p></div>
+        </div>
+        <div class="ann ann--r ann-a">
+          <div class="ann-arm"><div class="ann-dot"></div><div class="ann-line"></div></div>
+          <div class="ann-card"><h5>Brother QL API integration</h5><p>Platform communicates with Brother label printers on the factory network via their SDK. No middleware required.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="detail anim d3c">
+      <div class="detail-card"><div class="dc-lbl lbl-a">Business Value</div><p>Label printing is triggered by the production action itself — not a separate admin task. Reduces the gap between completion and next work centre receiving the job.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-s">Technical Integration</div><p>Flask backend receives the print request, formats the label data using the Brother QL Python library, and sends to the designated printer on the local network.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-p">Label Contents</div><p>Part number, WO/SO references, customer, current centre, destination, quantity, routing sequence, and timestamp — all from MIE Trak. Zero manual input.</p></div>
+      <div class="detail-card"><div class="dc-lbl lbl-o">Manufacturing Problem</div><p>Previously: labels handwritten or typed manually. Routing errors common. Labels lost between departments. No standard format enforced.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TECHNICAL ARCHITECTURE
+══════════════════════════════════════════ -->
+<section class="tech" id="tech">
+  <div class="wrap">
+    <span class="label label--p" style="display:block;margin-bottom:14px">Engineering Deep Dive</span>
+    <h2 class="h1" style="max-width:700px;margin-bottom:16px">Built with real engineering. Operated in real production.</h2>
+    <p class="body-lg" style="max-width:580px">The platform is not a prototype. It is live infrastructure — used daily by 60+ operators across Ludwick Precision's manufacturing facility.</p>
+    <div class="tech-grid anim">
+
+      <div class="tech-card" style="--tc:var(--s)">
+        <div class="tc-icon">🔐</div>
+        <h4>Authentication Workflow</h4>
+        <p>Operator enters kiosk number on Android tablet. Flask validates against MIE Trak employee records via REST API. Session created with operator identity, access level, and permitted work centres. All subsequent requests are session-authenticated.</p>
+        <div class="mini-flow">
+          <div class="mf-node">Kiosk #</div><div class="mf-arrow">→</div>
+          <div class="mf-node">Flask validate</div><div class="mf-arrow">→</div>
+          <div class="mf-node">MIE Trak</div><div class="mf-arrow">→</div>
+          <div class="mf-node">Session</div>
+        </div>
+      </div>
+
+      <div class="tech-card" style="--tc:var(--pu)">
+        <div class="tc-icon">🔌</div>
+        <h4>REST API Architecture</h4>
+        <p>Android WebView connects to Flask backend over the factory LAN. All data operations — work order queries, clock-in/out, ticket generation — are HTTP requests to versioned Flask routes. No direct database access from the client.</p>
+        <div class="mini-flow">
+          <div class="mf-node">Android</div><div class="mf-arrow">→</div>
+          <div class="mf-node">Flask routes</div><div class="mf-arrow">→</div>
+          <div class="mf-node">SQL / ERP</div><div class="mf-arrow">→</div>
+          <div class="mf-node">JSON</div>
+        </div>
+      </div>
+
+      <div class="tech-card" style="--tc:var(--or)">
+        <div class="tc-icon">🗄️</div>
+        <h4>SQL Server Data Layer</h4>
+        <p>A SQL Server layer sits between Flask and MIE Trak's database. Views and stored procedures aggregate production data — live job counts, operator clocking history, WO routing state — into queryable shapes for the platform.</p>
+        <div class="mini-flow">
+          <div class="mf-node">Flask</div><div class="mf-arrow">→</div>
+          <div class="mf-node">SQL views</div><div class="mf-arrow">→</div>
+          <div class="mf-node">MIE Trak DB</div>
+        </div>
+      </div>
+
+      <div class="tech-card" style="--tc:var(--a)">
+        <div class="tc-icon">⏱️</div>
+        <h4>Operator Clocking Workflow</h4>
+        <p>Clock In: POST to Flask → MIE Trak Labour API → timestamp written. Clock Out: quantity validated → outcome determined → ERP updated → Move Ticket generated if Complete. All in a single transaction flow per clock event.</p>
+        <div class="mini-flow">
+          <div class="mf-node">Clock In tap</div><div class="mf-arrow">→</div>
+          <div class="mf-node">POST API</div><div class="mf-arrow">→</div>
+          <div class="mf-node">ERP write</div><div class="mf-arrow">→</div>
+          <div class="mf-node">Live</div>
+        </div>
+      </div>
+
+      <div class="tech-card" style="--tc:var(--s)">
+        <div class="tc-icon">🖨️</div>
+        <h4>Label Printing Integration</h4>
+        <p>On job completion, Flask receives a print request from the client, formats label data from MIE Trak fields using the Brother QL Python library, and sends the print job to the designated network printer at the operator's work centre.</p>
+        <div class="mini-flow">
+          <div class="mf-node">WO Complete</div><div class="mf-arrow">→</div>
+          <div class="mf-node">Flask format</div><div class="mf-arrow">→</div>
+          <div class="mf-node">Brother API</div><div class="mf-arrow">→</div>
+          <div class="mf-node">Label</div>
+        </div>
+      </div>
+
+      <div class="tech-card" style="--tc:var(--pu)">
+        <div class="tc-icon">📄</div>
+        <h4>Digital Document Access</h4>
+        <p>Production drawings, job documentation, and work instructions are served by Flask from the network file store. Operators open drawings directly on their tablet — no physical file folder, no supervisor request required for standard documentation.</p>
+        <div class="mini-flow">
+          <div class="mf-node">WO selected</div><div class="mf-arrow">→</div>
+          <div class="mf-node">File query</div><div class="mf-arrow">→</div>
+          <div class="mf-node">Flask serve</div><div class="mf-arrow">→</div>
+          <div class="mf-node">Tablet</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="pills anim d2c" style="margin-top:32px">
+      <span class="pill pill-s">Python 3</span>
+      <span class="pill pill-s">Flask</span>
+      <span class="pill pill-s">SQL Server</span>
+      <span class="pill pill-s">MIE Trak REST API</span>
+      <span class="pill pill-a">Android WebView</span>
+      <span class="pill pill-a">Samsung Galaxy Tab Active</span>
+      <span class="pill pill-p">Brother QL API</span>
+      <span class="pill pill-p">HTML / CSS / JavaScript</span>
+      <span class="pill pill-p">IntersectionObserver</span>
+      <span class="pill pill-s">Session-based auth</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     IMPACT
+══════════════════════════════════════════ -->
+<section class="impact" id="impact">
+  <div class="wrap">
+    <span class="label label--a" style="display:block;margin-bottom:14px">Platform Impact</span>
+    <h2 class="h1" style="max-width:680px">From login at 07:12 to Move Ticket at 15:09 — entirely digital.</h2>
+    <div class="impact-strip anim">
+      <p class="body-lg" style="max-width:600px">Every production action tracked, attributed, and written to MIE Trak ERP automatically. Management sees it in real time. Operators are empowered to work independently.</p>
+      <div class="impact-kpis">
+        <div><div class="ikpi-n">60<em>+</em></div><div class="ikpi-l">Active daily operators</div></div>
+        <div><div class="ikpi-n">0</div><div class="ikpi-l">Paper job packs in production</div></div>
+        <div><div class="ikpi-n">Live</div><div class="ikpi-l">ERP sync on every clock action</div></div>
+        <div><div class="ikpi-n">8</div><div class="ikpi-l">Core screens in the operator journey</div></div>
+      </div>
+    </div>
+    <div class="credits">
+      <div class="credit-card anim">
+        <h4>Engineering Lead: Midhun Rajan</h4>
+        <p>System architecture, ERP integration design, workflow specification, SQL schema, operator experience, testing, deployment, and adoption were led by Midhun Rajan throughout the programme. Official title: Manufacturing &amp; Process Engineer.</p>
+      </div>
+      <div class="credit-card anim d2c">
+        <h4>Development: AI-Assisted Engineering</h4>
+        <p>Software implementation was accelerated using Claude as an engineering development partner — generating code, supporting architecture decisions, and accelerating delivery. All engineering judgement, specification, and accountability remain with Midhun Rajan.</p>
+      </div>
+      <div class="credit-card anim d3c" style="border-color:rgba(16,185,129,.2)">
+        <h4>Infrastructure: In-House, No SaaS</h4>
+        <p>Built entirely on internal infrastructure — Python, Flask, SQL Server, and the MIE Trak REST API. No external SaaS dependency. Ludwick Precision owns the platform, the data, and the roadmap.</p>
+        <div class="pills" style="margin-top:12px">
+          <span class="pill pill-a">Deployed to production</span>
+          <span class="pill pill-a">60+ daily users</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-name">Midhun Rajan</div>
+        <div class="footer-role">Manufacturing &amp; Process Engineer · Digital Transformation | Manufacturing Systems | AI &amp; Industrial Software</div>
+        <div style="margin-top:14px;display:flex;gap:14px;flex-wrap:wrap">
+          <a href="mailto:midhunrajan74@gmail.com" style="font-size:12px;color:var(--a)">midhunrajan74@gmail.com</a>
+          <span style="color:var(--bd)">·</span>
+          <a href="tel:07445588889" style="font-size:12px;color:var(--ink3)">07445 588889</a>
+          <span style="color:var(--bd)">·</span>
+          <a href="https://www.linkedin.com/in/midhun-rajan-09a006145" target="_blank" style="font-size:12px;color:var(--ink3)">LinkedIn</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="index.html" class="footer-link">Portfolio</a>
+        <a href="resume.html" class="footer-link">Resume</a>
+      </div>
+    </div>
+    <div class="footer-btm">
+      <p>© 2024 Manufacturing Operations Platform · Ludwick Precision Ltd</p>
+      <p>All screenshots are from the live production system · AI-assisted engineering</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Intersection observer for .anim ──
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { threshold:0.07, rootMargin:'0px 0px -30px 0px' });
+document.querySelectorAll('.anim').forEach(el => io.observe(el));
+
+// ── Handle device screen no-image state ──
+document.querySelectorAll('.device-screen img').forEach(img => {
+  function applyFallback(){
+    const screen = img.parentElement;
+    if(!screen.classList.contains('no-img')){
+      screen.classList.add('no-img');
+      img.style.display = 'none';
+      screen.querySelector('.screen-ph-icon') && (screen.querySelector('.screen-ph-icon').style.display = 'block');
+      screen.querySelector('.screen-ph-lbl') && (screen.querySelector('.screen-ph-lbl').style.display = 'block');
+    }
+  }
+  if(img.complete && img.naturalWidth === 0) applyFallback();
+  img.addEventListener('error', applyFallback);
+});
+
+// ── Chapter dots tracking ──
+const sections = ['hero','context','ecosystem','auth','home','workcentres','jobs','clockin','clockout','ticket','printing','tech'];
+const dots = document.querySelectorAll('.ch-dot');
+const jnums = document.querySelectorAll('.jnum');
+const chapterToJourney = {auth:0,home:1,workcentres:2,jobs:3,clockin:4,clockout:5,ticket:6,printing:7};
+
+const secObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      const id = e.target.id;
+      const idx = sections.indexOf(id);
+      if(idx >= 0){
+        dots.forEach((d,i) => d.classList.toggle('on', i===idx));
+        // Update journey bar
+        const ji = chapterToJourney[id];
+        if(ji !== undefined){
+          jnums.forEach((j,i) => j.classList.toggle('on', i===ji));
+        }
+      }
+    }
+  });
+}, { threshold:0.35 });
+sections.forEach(id => { const el=document.getElementById(id); if(el) secObserver.observe(el); });
+
+// ── Dot click navigation ──
+dots.forEach((dot,i) => {
+  dot.addEventListener('click', () => {
+    const el = document.getElementById(sections[i]);
+    if(el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+});
+</script>
+</body>
+</html>
